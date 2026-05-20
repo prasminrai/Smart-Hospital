@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Smart Hospitals</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Arial,sans-serif;
+    background:#f4f4f4;
+}
+
+.main{
+    display:flex;
+}
+
+
+
+.sidebar{
+    width:220px;
+    min-height:100vh;
+    background:skyblue;
+    color:white;
+    position:fixed;
+    left:0;
+    top:0;
+    transition:0.3s;
+    z-index:1000;
+}
+
+.sidebar h2{
+    text-align:center;
+    padding:20px;
+}
+
+.sidebar ul{
+    list-style:none;
+}
+
+.sidebar ul li a{
+    display:block;
+    padding:15px;
+    color:white;
+    text-decoration:none;
+    text-align:center;
+}
+
+.sidebar ul li:hover{
+    background:gray;
+}
+
+
+
+.content{
+    margin-left:220px;
+    width:100%;
+    padding:20px;
+}
+
+.header{
+    background:lightskyblue;
+    color:white;
+    padding:15px;
+    text-align:center;
+    position:relative;
+    border-radius:10px;
+}
+
+.header h1{
+    color:green;
+}
+
+
+.menu-btn{
+    display:none;
+    position:absolute;
+    left:15px;
+    top:15px;
+    font-size:25px;
+    cursor:pointer;
+}
+
+
+
+ol{
+    margin-top:20px;
+}
+
+ol li{
+    background:white;
+    margin:10px 0;
+    padding:15px;
+    border-radius:8px;
+    box-shadow:0 2px 5px rgba(0,0,0,0.1);
+    line-height:1.5;
+}
+
+
+
+@media (max-width:768px){
+
+.sidebar{
+    width:220px;
+    left:-220px;
+}
+
+.sidebar.active{
+    left:0;
+}
+
+.content{
+    margin-left:0;
+    padding:10px;
+}
+
+.menu-btn{
+    display:block;
+}
+
+.header{
+    padding:20px;
+}
+
+ol li{
+    font-size:14px;
+}
+
+}
+li:hover{
+    color:skyblue;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="sidebar" id="sidebar">
+
+<h2>APPY</h2>
+
+<ul>
+<li><a href="index.html">Home</a></li>
+<li><a href="Maps.html">Maps</a></li>
+<li><a href="Hospitals.html">Hospitals</a></li>
+<li><a href="Doctor list.html">Doctor List</a></li>
+<li><a href="Emergency number.html">Emergency Number</a></li>
+</ul>
+
+</div>
+
+<div class="content">
+
+<div class="header">
+
+<span class="menu-btn" onclick="toggleMenu()">☰</span>
+
+<h1>Hospital</h1>
+
+</div>
+
+<ol>
+<li>Nepal Mediciti Hospital (Nakhu): 1134 or 01-4217766</li>
+
+<li>Nepal National Hospital (Kalanki): 01-5225101 / 106 / 1147</li>
+
+<li>Green City Hospital (Basundhara): 01-4981133, 4983169, 4952248</li>
+
+<li>B&B Hospital (Gwarko): 01-5531933, 01-4351930</li>
+
+<li>Vayodha Hospitals (Balkhu): 01-4281666, 9802019561</li>
+
+<li>TU Teaching Hospital (Maharajgunj): 01-4412404, 01-4412505</li>
+
+<li>Bir Hospital (Kantipath): 01-4226963</li>
+
+<li>Patan Hospital (Lagankhel): 01-5522278, 01-5522266</li>
+
+<li>Metro Kathmandu Hospital: 01-4721515</li>
+
+<li>Kirtipur Hospital: 01-4330200</li>
+</ol>
+
+</div>
+
+<script>
+function toggleMenu(){
+document.getElementById("sidebar")
+.classList.toggle("active");
+}
+</script>
+
+</body>
+</html>
