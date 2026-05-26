@@ -1,150 +1,235 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Smart hospitals</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Smart Hospitals Map</title>
 
-    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
 
-    <style>
-        body{
-            margin:0;
-            font-family:Arial, sans-serif;
-        }
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
 
-        .sidebar{
-            width:200px;
-            height:100vh;
-            background-color:skyblue;
-            color:white;
-            padding-top:20px;
-            position:fixed;
-        }
+body{
+font-family:Arial, sans-serif;
+background:linear-gradient(135deg,#dbeafe,#f0f9ff);
+min-height:100vh;
+}
 
-        .sidebar h2{
-            text-align:center;
-        }
+/* SIDEBAR */
+.sidebar{
+width:220px;
+height:100vh;
+position:fixed;
+left:0;
+top:0;
+z-index:1000;
+color:white;
 
-        .sidebar ul{
-            list-style:none;
-            padding:0;
-        }
+background:
+linear-gradient(rgba(0,0,0,0.6),
+rgba(0,0,0,0.6)),
+url("https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d");
 
-        .sidebar ul li{
-            padding:15px;
-            text-align:center;
-        }
+background-size:cover;
+background-position:center;
 
-        .sidebar ul li a{
-            color:white;
-            text-decoration:none;
-            display:block;
-        }
+transition:0.3s ease;
+}
 
-        .sidebar ul li:hover{
-            background-color:grey;
-        }
+.sidebar h2{
+text-align:center;
+padding:25px;
+font-size:28px;
+}
 
-        .content{
-            margin-left:220px;
-            padding:20px;
-        }
+.sidebar ul{
+list-style:none;
+}
 
-        .header{
-            background:lightskyblue;
-            color:white;
-            padding:15px;
-            text-align:center;
-            position:relative;
-        }
+.sidebar ul li a{
+display:block;
+padding:15px;
+color:white;
+text-decoration:none;
+text-align:center;
+transition:0.3s;
+border-radius:8px;
+}
 
-        .menu-btn{
-            position:absolute;
-            left:10px;
-            top:10px;
-            font-size:20px;
-            cursor:pointer;
-            color:white;
-        }
+.sidebar ul li:hover a{
+background:rgba(255,255,255,0.2);
+}
 
-        #map{
-            height:500px;
-            width:100%;
-            margin-top:20px;
-        }
+/* CONTENT */
+.content{
+margin-left:220px;
+padding:25px;
+}
 
-        @media(max-width:768px){
+/* HEADER */
+.header{
+background:
+linear-gradient(rgba(0,0,0,0.5),
+rgba(0,0,0,0.5)),
+url("https://images.unsplash.com/photo-1538108149393-fbbd81895907");
 
-            .sidebar{
-                width:0;
-                overflow:hidden;
-                transition:0.3s;
-            }
+background-size:cover;
+background-position:center;
 
-            .sidebar.active{
-                width:200px;
-            }
+color:white;
+padding:40px;
+text-align:center;
+border-radius:15px;
 
-            .content{
-                margin-left:0;
-            }
-        }
+box-shadow:0 5px 15px rgba(0,0,0,0.3);
+position:relative;
+}
 
-    </style>
+.header h1{
+font-size:36px;
+}
+
+.header p{
+margin-top:10px;
+opacity:0.9;
+}
+
+/* MENU BUTTON */
+.menu-btn{
+position:absolute;
+left:15px;
+top:15px;
+font-size:28px;
+cursor:pointer;
+color:white;
+display:none;
+z-index:1101;
+}
+
+/* MAP */
+.map-container{
+margin-top:20px;
+background:white;
+border-radius:15px;
+padding:15px;
+box-shadow:0 10px 25px rgba(0,0,0,0.15);
+overflow:hidden;
+}
+
+#map{
+height:400px;
+width:100%;
+border-radius:12px;
+}
+
+/* OVERLAY */
+.overlay{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.4);
+display:none;
+z-index:999;
+}
+
+.overlay.active{
+display:block;
+}
+
+/* MOBILE */
+@media(max-width:768px){
+
+.sidebar{
+left:-220px;
+}
+
+.sidebar.active{
+left:0;
+}
+
+.content{
+margin-left:0;
+}
+.leaflet-top,
+.leaflet-bottom {
+    z-index: 500 !important;
+}
+.menu-btn{
+display:block;
+}
+}
+</style>
 </head>
 
 <body>
 
-    <div class="sidebar" id="sidebar">
+<!-- OVERLAY -->
+<div class="overlay" onclick="toggleMenu()"></div>
 
-        <h2>APPY</h2>
+<!-- SIDEBAR -->
+<div class="sidebar" id="sidebar">
+<h2>APPY</h2>
 
-        <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="Maps.html">Maps</a></li>
-            <li><a href="Hospitals.html">Hospitals</a></li>
-            <li><a href="Doctor list .html">Doctor list</a></li>
-            <li><a href="Emergency number.html">Emergency number</a></li>
-        </ul>
+<ul>
+<li><a href="index.html">Home</a></li>
+<li><a href="Maps.html">Maps</a></li>
+<li><a href="Hospitals.html">Hospitals</a></li>
+<li><a href="Emergency number.html">Emergency Number</a></li>
+</ul>
+</div>
 
-    </div>
+<!-- CONTENT -->
+<div class="content">
 
-    <div class="content">
+<div class="header">
+<span class="menu-btn" onclick="toggleMenu()">☰</span>
 
-        <div class="header">
-            <span class="menu-btn" onclick="toggleMenu()">☰</span>
-            <h1>Map</h1>
-        </div>
+<h1>🗺️ Hospital Map</h1>
+<p>Find nearby hospitals easily</p>
+</div>
 
-        <div id="map"></div>
+<div class="map-container">
+<div id="map"></div>
+</div>
 
-    </div>
+</div>
 
-   
-    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
-    <script>
+<script>
+function toggleMenu(){
+document.getElementById("sidebar").classList.toggle("active");
+document.querySelector(".overlay").classList.toggle("active");
+}
 
-        function toggleMenu(){
-            document.getElementById("sidebar").classList.toggle("active");
-        }
+// MAP INIT
+var map = L.map('map').setView([27.6955, 85.3442], 13);
 
-        // Create map
-        var map = L.map('map').setView([27.6955, 85.3442], 13);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+attribution:'© OpenStreetMap contributors'
+}).addTo(map);
 
-        // OpenStreetMap layer
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution:'© OpenStreetMap contributors'
-        }).addTo(map);
+// HOSPITAL DATA
+var hospitals = [
+{ name:"Bir Hospital", lat:27.7050, lng:85.3150 },
+{ name:"T.U Teaching Hospital", lat:27.7344, lng:85.3300 },
+{ name:"Norvic Hospital", lat:27.7000, lng:85.3125 },
+{ name:"Grande Hospital", lat:27.7390, lng:85.3110 }
+];
 
-        // Hospital marker
-        L.marker([27.7025, 85.3303])
-        .addTo(map)
-        .bindPopup("Hospital")
-        .openPopup();
-
-    </script>
+hospitals.forEach(h => {
+L.marker([h.lat, h.lng])
+.addTo(map)
+.bindPopup("🏥 " + h.name);
+});
+</script>
 
 </body>
 </html>
