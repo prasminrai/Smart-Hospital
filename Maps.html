@@ -20,7 +20,7 @@ background:linear-gradient(135deg,#dbeafe,#f0f9ff);
 min-height:100vh;
 }
 
-/* SIDEBAR */
+
 .sidebar{
 width:220px;
 height:100vh;
@@ -65,13 +65,12 @@ border-radius:8px;
 background:rgba(255,255,255,0.2);
 }
 
-/* CONTENT */
+
 .content{
 margin-left:220px;
 padding:25px;
 }
 
-/* HEADER */
 .header{
 background:
 linear-gradient(rgba(0,0,0,0.5),
@@ -99,7 +98,6 @@ margin-top:10px;
 opacity:0.9;
 }
 
-/* MENU BUTTON */
 .menu-btn{
 position:absolute;
 left:15px;
@@ -111,7 +109,7 @@ display:none;
 z-index:1101;
 }
 
-/* MAP */
+
 .map-container{
 margin-top:20px;
 background:white;
@@ -127,7 +125,7 @@ width:100%;
 border-radius:12px;
 }
 
-/* OVERLAY */
+
 .overlay{
 position:fixed;
 top:0;
@@ -143,7 +141,7 @@ z-index:999;
 display:block;
 }
 
-/* MOBILE */
+
 @media(max-width:768px){
 
 .sidebar{
@@ -170,10 +168,9 @@ display:block;
 
 <body>
 
-<!-- OVERLAY -->
+
 <div class="overlay" onclick="toggleMenu()"></div>
 
-<!-- SIDEBAR -->
 <div class="sidebar" id="sidebar">
 <h2>APPY</h2>
 
@@ -185,7 +182,7 @@ display:block;
 </ul>
 </div>
 
-<!-- CONTENT -->
+
 <div class="content">
 
 <div class="header">
@@ -209,14 +206,14 @@ document.getElementById("sidebar").classList.toggle("active");
 document.querySelector(".overlay").classList.toggle("active");
 }
 
-// MAP INIT
+
 var map = L.map('map').setView([27.6955, 85.3442], 13);
 
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 attribution:'© OpenStreetMap contributors'
 }).addTo(map);
 
-// HOSPITAL DATA
+
 var hospitals = [
 { name:"Bir Hospital", lat:27.7050, lng:85.3150 },
 { name:"T.U Teaching Hospital", lat:27.7344, lng:85.3300 },
