@@ -6,115 +6,320 @@
 <title>Smart Hospitals</title>
 
 <style>
+
+/* RESET */
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
 body{
-    margin:0;
-    font-family:Arial,sans-serif;
-    background:#f2f2f2;
+font-family:Arial, sans-serif;
+background:#eef3f8;
 }
 
+/* SIDEBAR */
 .sidebar{
-    width:200px;
-    height:100vh;
-    background:skyblue;
-    position:fixed;
-    padding-top:20px;
-    color:white;
+width:220px;
+min-height:100vh;
+position:fixed;
+left:0;
+top:0;
+z-index:1000;
+color:white;
+
+background:
+linear-gradient(rgba(0,0,0,0.6),
+rgba(0,0,0,0.6)),
+url("https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d");
+
+background-size:cover;
+background-position:center;
 }
 
+.sidebar h2{
+text-align:center;
+padding:25px;
+font-size:28px;
+}
+
+.sidebar ul{
+list-style:none;
+}
+
+.sidebar ul li a{
+display:block;
+padding:15px;
+color:white;
+text-decoration:none;
+text-align:center;
+transition:0.3s;
+border-radius:8px;
+}
+
+.sidebar ul li:hover a{
+background:rgba(255,255,255,0.2);
+}
+
+/* CONTENT */
 .content{
-    margin-left:220px;
-    padding:20px;
+margin-left:220px;
+padding:25px;
 }
 
-.card{
-    background:white;
-    margin:15px;
-    padding:15px;
-    border-radius:10px;
-    box-shadow:0 2px 10px rgba(0,0,0,0.2);
+/* HEADER */
+.header{
+background:
+linear-gradient(rgba(0,0,0,0.5),
+rgba(0,0,0,0.5)),
+url("https://images.unsplash.com/photo-1538108149393-fbbd81895907");
+
+background-size:cover;
+background-position:center;
+
+color:white;
+padding:40px;
+text-align:center;
+border-radius:15px;
+
+box-shadow:0 5px 15px rgba(0,0,0,0.3);
 }
 
+.header h1{
+font-size:36px;
+}
+
+.header p{
+margin-top:10px;
+opacity:0.9;
+}
+
+/* MENU BUTTON */
+.menu-btn{
+position:absolute;
+left:15px;
+top:15px;
+font-size:25px;
+cursor:pointer;
+color:white;
+display:none;
+}
+
+/* LIST ITEM FLEX */
+ol{
+margin-top:25px;
+}
+
+ol li{
+background:white;
+margin:18px 0;
+padding:18px;
+border-radius:15px;
+
+box-shadow:0 5px 15px rgba(0,0,0,0.15);
+
+list-style:none;
+
+display:flex;
+justify-content:space-between;
+align-items:center;
+
+transition:0.3s;
+}
+
+ol li:hover{
+transform:translateY(-5px);
+box-shadow:0 8px 20px rgba(0,0,0,0.25);
+}
+
+/* TEXT AREA */
+.info{
+flex:1;
+}
+
+ol li b{
+font-size:18px;
+color:#1d3557;
+}
+
+ol li p{
+color:#555;
+margin:4px 0;
+}
+
+/* IMAGE */
+.hospital-img{
+width:80px;
+height:80px;
+border-radius:12px;
+object-fit:cover;
+margin-left:15px;
+border:2px solid #00aaff;
+}
+
+/* BUTTON */
 button{
-    background:#0077cc;
-    color:white;
-    border:none;
-    padding:10px;
-    width:100%;
-    border-radius:5px;
-    cursor:pointer;
+margin-top:10px;
+border:none;
+padding:10px 16px;
+border-radius:30px;
+
+background:linear-gradient(45deg,#0077cc,#00aaff);
+color:white;
+cursor:pointer;
+font-size:14px;
+transition:0.3s;
 }
-button:hover{ background:#005fa3; }
+
+button:hover{
+transform:scale(1.05);
+background:linear-gradient(45deg,#005fa3,#0077cc);
+}
+
+@media(max-width:768px){
+
+    .sidebar{
+        left:-220px;   /* hide it off-screen */
+        width:220px;
+        z-index:1000;
+    }
+
+    .sidebar.active{
+        left:0;        /* slide in */
+    }
+
+    .content{
+        margin-left:0;
+    }
+
+    .menu-btn{
+        display:block;
+        position:absolute;
+        left:15px;
+        top:15px;
+        font-size:28px;
+        cursor:pointer;
+        z-index:1100;
+    }
+}
+
 </style>
 </head>
 
 <body>
 
-<div class="content">
-<h1>Hospital Directory</h1>
+<!-- SIDEBAR -->
+<div class="sidebar" id="sidebar">
 
-<div id="hospitalContainer"></div>
+<h2>APPY</h2>
+
+<ul>
+<li><a href="index.html">Home</a></li>
+<li><a href="Maps.html">Maps</a></li>
+<li><a href="Hospitals.html">Hospitals</a></li>
+<li><a href="Emergency number.html">Emergency Number</a></li>
+</ul>
+
+</div>
+
+<!-- CONTENT -->
+<div class="content">
+
+<div class="header">
+
+<span class="menu-btn" onclick="toggleMenu()">☰</span>
+
+<h1>🏥 Hospital Directory</h1>
+<p>Quick access to hospitals and doctor information</p>
+
+</div>
+
+<ol id="hospitalContainer"></ol>
+
 </div>
 
 <script>
 
+function toggleMenu(){
+document.getElementById("sidebar").classList.toggle("active");
+}
+
+/* DATA WITH IMAGES */
 const hospitals = [
 {
 name:"Bir Hospital",
 location:"Kathmandu",
-services:"Emergency, Surgery, ICU"
+services:"Emergency, Surgery, ICU",
+img:"https://upload.wikimedia.org/wikipedia/commons/6/6f/Bir_Hospital_Kathmandu.jpg"
 },
 {
 name:"T.U Teaching Hospital",
 location:"Maharajgunj",
-services:"Medical Education, Emergency"
+services:"Medical Education, Emergency",
+img:"https://upload.wikimedia.org/wikipedia/commons/3/3f/Tribhuvan_University_Teaching_Hospital.jpg"
 },
 {
 name:"Norvic International Hospital",
 location:"Kathmandu",
-services:"Cardiology, Orthopedics"
+services:"Cardiology, Orthopedics",
+img:"https://www.norvichospital.com/images/about.jpg"
 },
 {
 name:"Grande International Hospital",
 location:"Tokha",
-services:"Neurology, Pediatrics, ICU"
+services:"Neurology, Pediatrics, ICU",
+img:"https://www.grandehospital.com/images/about.jpg"
 },
 {
 name:"Nepal Mediciti Hospital",
 location:"Lalitpur",
-services:"Multi-speciality, ICU"
+services:"Multi-speciality, ICU",
+img:"https://nepalmediciti.com/wp-content/uploads/2019/03/hospital.jpg"
 },
 {
 name:"Patan Hospital",
 location:"Lagankhel",
-services:"General Medicine, Surgery"
+services:"General Medicine, Surgery",
+img:"https://upload.wikimedia.org/wikipedia/commons/1/1c/Patan_Hospital.jpg"
 },
 {
 name:"Om Hospital",
 location:"Chabahil",
-services:"Surgery, Emergency, ICU"
+services:"Surgery, Emergency, ICU",
+img:"https://omhospital.com.np/images/slider/1.jpg"
 },
 {
 name:"HAMS Hospital",
 location:"Mandikhatar",
-services:"Emergency, ICU, Neurology"
+services:"Emergency, ICU, Neurology",
+img:"https://hams.com.np/images/hospital.jpg"
 }
 ];
 
+/* DISPLAY */
 function displayHospital(){
 let data="";
 
 hospitals.forEach(h=>{
 data += `
-<div class="card">
-<h2>${h.name}</h2>
-<p>${h.location}</p>
-<p>${h.services}</p>
+<li>
+
+<div class="info">
+
+<b>${h.name}</b>
+<p>📍 ${h.location}</p>
+<p>🩺 ${h.services}</p>
 
 <a href="doctor.html?hospital=${encodeURIComponent(h.name)}">
 <button>View Doctors</button>
 </a>
 
 </div>
+
+<img class="hospital-img" src="${h.img}" alt="${h.name}">
+
+</li>
 `;
 });
 

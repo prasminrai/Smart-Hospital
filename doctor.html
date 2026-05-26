@@ -2,161 +2,216 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<title>Doctors</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Doctor List</title>
 
 <style>
-body{
-    margin:0;
-    font-family:Arial, sans-serif;
-    background:#f2f2f2;
+
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
 }
 
-.container{
-    max-width:800px;
-    margin:auto;
-    padding:20px;
+body{
+font-family:Arial,sans-serif;
+background:linear-gradient(135deg,#eef3f8,#f7fbff);
+padding:20px;
 }
 
 h1{
-    text-align:center;
-    color:#0077cc;
+text-align:center;
+margin-bottom:20px;
+color:#1d3557;
 }
+
+#doctorContainer{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:20px;
+}
+
 
 .card{
-    background:white;
-    padding:15px;
-    margin:15px 0;
-    border-radius:10px;
-    box-shadow:0 2px 10px rgba(0,0,0,0.2);
+background:white;
+border-radius:15px;
+padding:15px;
+text-align:center;
+
+box-shadow:0 5px 15px rgba(0,0,0,0.15);
+
+transition:0.3s;
 }
 
-.doctor{
-    background:#eee;
-    padding:10px;
-    margin:8px 0;
-    border-radius:5px;
+.card:hover{
+transform:translateY(-5px);
+box-shadow:0 10px 25px rgba(0,0,0,0.25);
 }
 
-.back{
-    text-align:center;
-    margin-top:20px;
+.card img{
+width:100px;
+height:100px;
+border-radius:50%;
+object-fit:cover;
+margin-bottom:10px;
+border:3px solid #00aaff;
 }
 
-.back a{
-    background:#0077cc;
-    color:white;
-    padding:10px 15px;
-    text-decoration:none;
-    border-radius:5px;
+
+.card h2{
+font-size:18px;
+color:#1d3557;
+margin-bottom:5px;
 }
 
-.back a:hover{
-    background:#005fa3;
+.card p{
+color:#555;
+margin:4px 0;
+font-size:14px;
+}
+
+.badge{
+display:inline-block;
+padding:5px 10px;
+border-radius:20px;
+background:linear-gradient(45deg,#0077cc,#00aaff);
+color:white;
+font-size:12px;
+margin-top:5px;
+}
+
+
+button{
+margin-top:10px;
+padding:10px 15px;
+border:none;
+border-radius:25px;
+background:linear-gradient(45deg,#0077cc,#00aaff);
+color:white;
+cursor:pointer;
+transition:0.3s;
+}
+
+button:hover{
+transform:scale(1.05);
+background:linear-gradient(45deg,#005fa3,#0077cc);
+}
+
+
+@media(max-width:768px){
+
+    .sidebar{
+        left:-220px;   
+        width:220px;
+        z-index:1000;
+    }
+
+    .sidebar.active{
+        left:0;        
+    }
+
+    .content{
+        margin-left:0;
+    }
+
+    .menu-btn{
+        display:block;
+        position:absolute;
+        left:15px;
+        top:15px;
+        font-size:28px;
+        cursor:pointer;
+        z-index:1100;
+    }
 }
 </style>
 </head>
 
 <body>
 
-<div class="container">
+<h1 id="title"></h1>
 
-<h1 id="hospitalName">Doctor List</h1>
-
-<div id="doctorList"></div>
-
-<div class="back">
-    <a href="Hospitals.html">← Back to Hospitals</a>
-</div>
-
-</div>
+<div id="doctorContainer"></div>
 
 <script>
 
-/* FULL DOCTOR DATABASE (ALL 8 HOSPITALS) */
-const doctorsData = {
+const doctors = {
 
 "Bir Hospital":[
-"Dr. Ashesh Dhungana - Internal Medicine",
-"Dr. Prajwol Shrestha - Orthopedic Surgery",
-"Dr. Suresh Prasad Nepal - Emergency Medicine",
-"Dr. Kanchan Gautam - ENT Specialist"
+{name:"Dr. Ram Sharma",specialist:"Cardiologist",exp:"12 Years",available:"9AM - 2PM",img:"https://randomuser.me/api/portraits/men/32.jpg"},
+{name:"Dr. Sita Rai",specialist:"Neurologist",exp:"8 Years",available:"11AM - 4PM",img:"https://randomuser.me/api/portraits/women/44.jpg"},
+{name:"Dr. Anil KC",specialist:"General Physician",exp:"5 Years",available:"10AM - 3PM",img:"https://randomuser.me/api/portraits/men/65.jpg"}
 ],
 
 "T.U Teaching Hospital":[
-"Dr. Mahesh Raj Sigdel - Nephrology",
-"Dr. Sanjay Bhusal - Internal Medicine",
-"Dr. Matina Sayami - Endocrinology",
-"Dr. Rakshya Shrestha - Oncology"
+{name:"Dr. Hari Thapa",specialist:"Orthopedic",exp:"10 Years",available:"9AM - 1PM",img:"https://randomuser.me/api/portraits/men/45.jpg"},
+{name:"Dr. Mina Gurung",specialist:"Pediatrician",exp:"7 Years",available:"12PM - 5PM",img:"https://randomuser.me/api/portraits/women/65.jpg"},
+{name:"Dr. Ramesh Shrestha",specialist:"Surgeon",exp:"15 Years",available:"On Call",img:"https://randomuser.me/api/portraits/men/12.jpg"}
 ],
 
 "Norvic International Hospital":[
-"Dr. Ramesh Chokhani - Cardiology",
-"Dr. Pankaj Deo - Interventional Cardiology",
-"Dr. Suraj Gupta - Internal Medicine",
-"Dr. Brajendra Shrivastav - Gastroenterology"
+{name:"Dr. Roshan Rai",specialist:"Cardiology",exp:"14 Years",available:"10AM - 3PM",img:"https://randomuser.me/api/portraits/men/21.jpg"},
+{name:"Dr. Asha Thapa",specialist:"Gynecology",exp:"9 Years",available:"11AM - 4PM",img:"https://randomuser.me/api/portraits/women/22.jpg"}
 ],
 
 "Grande International Hospital":[
-"Dr. Arjun Karki - Pulmonology",
-"Dr. Mohan Prasai - Respiratory Medicine",
-"Dr. Roshan KC - Neurology",
-"Dr. Prakash Sayami - Oncology"
+{name:"Dr. Nabin Sharma",specialist:"Neurology",exp:"11 Years",available:"9AM - 2PM",img:"https://randomuser.me/api/portraits/men/52.jpg"},
+{name:"Dr. Sunita Joshi",specialist:"Pediatrics",exp:"6 Years",available:"12PM - 5PM",img:"https://randomuser.me/api/portraits/women/12.jpg"}
 ],
 
 "Nepal Mediciti Hospital":[
-"Dr. Sanjeet Krishna Shrestha - Cardiology",
-"Dr. Ravi Mahat - Internal Medicine",
-"Dr. Sandeep Shah - Gastroenterology",
-"Dr. Anil Gurung - Dermatology"
+{name:"Dr. Kiran Thapa",specialist:"ICU Specialist",exp:"13 Years",available:"24 Hours",img:"https://randomuser.me/api/portraits/men/77.jpg"},
+{name:"Dr. Samira Shrestha",specialist:"Cardiology",exp:"9 Years",available:"10AM - 4PM",img:"https://randomuser.me/api/portraits/women/33.jpg"}
 ],
 
 "Patan Hospital":[
-"Dr. Anil Shrestha - General Medicine",
-"Dr. Suman Raj Karki - Pediatrics",
-"Dr. Nirmal Bhattarai - Surgery",
-"Dr. Sushil Thapa - Orthopedics"
+{name:"Dr. Samir Rai",specialist:"General Medicine",exp:"8 Years",available:"9AM - 2PM",img:"https://randomuser.me/api/portraits/men/90.jpg"},
+{name:"Dr. Nisha Karki",specialist:"Dermatology",exp:"5 Years",available:"11AM - 3PM",img:"https://randomuser.me/api/portraits/women/55.jpg"}
 ],
 
 "Om Hospital":[
-"Dr. Rakesh Rai - General Surgery",
-"Dr. Sunita Sharma - ICU Specialist",
-"Dr. Anish Karki - Emergency Medicine",
-"Dr. Prabin Gurung - Neurology"
+{name:"Dr. Anish Karki",specialist:"Surgery",exp:"10 Years",available:"On Call",img:"https://randomuser.me/api/portraits/men/66.jpg"}
 ],
 
 "HAMS Hospital":[
-"Dr. Aayush Aryal - Orthopedic Surgery",
-"Dr. Abart Joshi - Urology",
-"Dr. Amit Shrestha - Oncology",
-"Dr. Bhola Rijal - Gynecology"
+{name:"Dr. Sunita Sharma",specialist:"Emergency Specialist",exp:"12 Years",available:"24 Hours",img:"https://randomuser.me/api/portraits/women/66.jpg"}
 ]
 
 };
 
-/* GET HOSPITAL FROM URL */
 const params = new URLSearchParams(window.location.search);
 const hospital = params.get("hospital");
 
-/* SET TITLE */
-document.getElementById("hospitalName").innerText =
-hospital ? hospital : "Doctor List";
+document.getElementById("title").innerText = hospital + " Doctors";
 
-/* SHOW DOCTORS */
-const list = document.getElementById("doctorList");
+let data = "";
 
-if(doctorsData[hospital]){
-    doctorsData[hospital].forEach(doc=>{
-        list.innerHTML += `
-        <div class="card">
-            <div class="doctor">${doc}</div>
-        </div>
-        `;
-    });
-}
-else{
-    list.innerHTML = "<p style='text-align:center;'>No doctors found</p>";
-}
+doctors[hospital].forEach(doc => {
+
+data += `
+<div class="card">
+
+<img src="${doc.img}" alt="Doctor">
+
+<h2>${doc.name}</h2>
+
+<p>🩺 ${doc.specialist}</p>
+<p>⏳ Experience: ${doc.exp}</p>
+<p>🕒 Available: ${doc.available}</p>
+
+<span class="badge">${hospital}</span>
+
+<br>
+
+<button>Book Appointment</button>
+
+</div>
+`;
+
+});
+
+document.getElementById("doctorContainer").innerHTML = data;
 
 </script>
 
