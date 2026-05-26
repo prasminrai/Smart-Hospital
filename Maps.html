@@ -1,150 +1,120 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Smart hospitals</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+<title>Smart Hospitals Map</title>
 
-    <style>
-        body{
-            margin:0;
-            font-family:Arial, sans-serif;
-        }
 
-        .sidebar{
-            width:200px;
-            height:100vh;
-            background-color:skyblue;
-            color:white;
-            padding-top:20px;
-            position:fixed;
-        }
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
 
-        .sidebar h2{
-            text-align:center;
-        }
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
-        .sidebar ul{
-            list-style:none;
-            padding:0;
-        }
+<style>
 
-        .sidebar ul li{
-            padding:15px;
-            text-align:center;
-        }
+body{
+    margin:0;
+    font-family:Arial, sans-serif;
+}
 
-        .sidebar ul li a{
-            color:white;
-            text-decoration:none;
-            display:block;
-        }
+/* Sidebar (optional if you use it elsewhere) */
+.sidebar{
+    width:200px;
+    height:100vh;
+    background-color:skyblue;
+    color:white;
+    padding-top:20px;
+    position:fixed;
+}
 
-        .sidebar ul li:hover{
-            background-color:grey;
-        }
+.content{
+    margin-left:200px;
+}
 
-        .content{
-            margin-left:220px;
-            padding:20px;
-        }
+/* MAP */
+#map{
+    height:100vh;
+    width:100%;
+}
 
-        .header{
-            background:lightskyblue;
-            color:white;
-            padding:15px;
-            text-align:center;
-            position:relative;
-        }
+/* Popup button */
+button{
+    background:#0077cc;
+    color:white;
+    border:none;
+    padding:6px 10px;
+    cursor:pointer;
+    border-radius:5px;
+}
 
-        .menu-btn{
-            position:absolute;
-            left:10px;
-            top:10px;
-            font-size:20px;
-            cursor:pointer;
-            color:white;
-        }
+button:hover{
+    background:#005fa3;
+}
 
-        #map{
-            height:500px;
-            width:100%;
-            margin-top:20px;
-        }
+</style>
 
-        @media(max-width:768px){
-
-            .sidebar{
-                width:0;
-                overflow:hidden;
-                transition:0.3s;
-            }
-
-            .sidebar.active{
-                width:200px;
-            }
-
-            .content{
-                margin-left:0;
-            }
-        }
-
-    </style>
 </head>
 
 <body>
 
-    <div class="sidebar" id="sidebar">
+<div id="map"></div>
 
-        <h2>APPY</h2>
+<script>
 
-        <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="Maps.html">Maps</a></li>
-            <li><a href="Hospitals.html">Hospitals</a></li>
-            <li><a href="Doctor list .html">Doctor list</a></li>
-            <li><a href="Emergency number.html">Emergency number</a></li>
-        </ul>
+window.onload = function () {
 
-    </div>
+    // 🗺️ Center on Kathmandu
+    var map = L.map('map').setView([27.7172, 85.3240], 13);
 
-    <div class="content">
+    // 🌍 Map layer
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution:'© OpenStreetMap contributors'
+    }).addTo(map);
 
-        <div class="header">
-            <span class="menu-btn" onclick="toggleMenu()">☰</span>
-            <h1>Map</h1>
-        </div>
+    // 🏥 Hospitals in Kathmandu
+    const hospitals = [
+        {name:"Bir Hospital", lat:27.7025, lng:85.3303},
+        {name:"T.U Teaching Hospital", lat:27.7346, lng:85.3356},
+        {name:"Norvic International Hospital", lat:27.6910, lng:85.3140},
+        {name:"Grande International Hospital", lat:27.7480, lng:85.3280},
+        {name:"Nepal Mediciti Hospital", lat:27.6735, lng:85.3235},
+        {name:"Patan Hospital", lat:27.6735, lng:85.3235},
+        {name:"Om Hospital", lat:27.7350, lng:85.3420},
+        {name:"HAMS Hospital", lat:27.7500, lng:85.3450}
+    ];
 
-        <div id="map"></div>
+    // 📍 Open Google Maps Route
+    function openRoute(lat,lng){
+        window.open(
+            `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`,
+            "_blank"
+        );
+    }
 
-    </div>
+    // 📌 Add markers
+    hospitals.forEach(h => {
 
-   
-    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+        let marker = L.marker([h.lat, h.lng]).addTo(map);
 
-    <script>
+        marker.bindPopup(`
+            <b>${h.name}</b><br><br>
+            <button onclick="openRoute(${h.lat},${h.lng})">
+                Get Directions
+            </button>
+        `);
 
-        function toggleMenu(){
-            document.getElementById("sidebar").classList.toggle("active");
-        }
+        // Click marker → go to hospital list page
+        marker.on("click", function () {
+            window.location.href =
+            "Hospitals.html?hospital=" + encodeURIComponent(h.name);
+        });
 
-        // Create map
-        var map = L.map('map').setView([27.6955, 85.3442], 13);
+    });
 
-        // OpenStreetMap layer
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution:'© OpenStreetMap contributors'
-        }).addTo(map);
+};
 
-        // Hospital marker
-        L.marker([27.7025, 85.3303])
-        .addTo(map)
-        .bindPopup("Hospital")
-        .openPopup();
-
-    </script>
+</script>
 
 </body>
 </html>
