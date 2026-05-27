@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hospital Beds</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+font-family:Arial,sans-serif;
+background:#eef3f8;
+}
+
+.sidebar{
+width:220px;
+min-height:100vh;
+position:fixed;
+left:0;
+top:0;
+color:white;
+
+background:
+linear-gradient(rgba(0,0,0,0.6),
+rgba(0,0,0,0.6)),
+url("https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d");
+
+background-size:cover;
+background-position:center;
+}
+
+.sidebar h2{
+text-align:center;
+padding:25px;
+}
+
+.sidebar ul{
+list-style:none;
+}
+
+.sidebar ul li a{
+display:block;
+padding:15px;
+color:white;
+text-decoration:none;
+text-align:center;
+transition:.3s;
+border-radius:8px;
+}
+
+.sidebar ul li:hover a{
+background:rgba(255,255,255,.2);
+}
+
+.content{
+margin-left:220px;
+padding:25px;
+}
+
+.header{
+background:
+linear-gradient(rgba(0,0,0,.5),
+rgba(0,0,0,.5)),
+url("https://images.unsplash.com/photo-1538108149393-fbbd81895907");
+
+background-size:cover;
+background-position:center;
+
+color:white;
+padding:40px;
+text-align:center;
+border-radius:15px;
+}
+
+.menu-btn{
+position:absolute;
+left:15px;
+top:15px;
+font-size:28px;
+cursor:pointer;
+display:none;
+}
+
+ol{
+margin-top:25px;
+}
+
+ol li{
+background:white;
+padding:20px;
+margin:15px 0;
+border-radius:15px;
+
+display:flex;
+justify-content:space-between;
+align-items:center;
+
+box-shadow:0 5px 15px rgba(0,0,0,.15);
+transition:.3s;
+}
+
+ol li:hover{
+transform:translateY(-5px);
+}
+
+.info{
+flex:1;
+}
+
+.info b{
+font-size:18px;
+color:#1d3557;
+}
+
+.status{
+padding:8px 15px;
+border-radius:20px;
+font-weight:bold;
+color:white;
+}
+
+.available{
+background:green;
+}
+
+.full{
+background:red;
+}
+
+@media(max-width:768px){
+
+.sidebar{
+left:-220px;
+}
+
+.sidebar.active{
+left:0;
+}
+
+.content{
+margin-left:0;
+}
+
+.menu-btn{
+display:block;
+color:white;
+}
+}
+
+</style>
+</head>
+<body>
+
+<div class="sidebar" id="sidebar">
+
+<h2>APPY</h2>
+
+<ul>
+<li><a href="index.html">Home</a></li>
+<li><a href="Maps.html">Maps</a></li>
+<li><a href="Hospitals.html">Hospitals</a></li>
+<li><a href="beds.html">Beds</a></li>
+<li><a href="Emergency number.html">Emergency Number</a></li>
+</ul>
+
+</div>
+
+
+<div class="content">
+
+<div class="header">
+
+<span class="menu-btn" onclick="toggleMenu()">☰</span>
+
+<h1>🛏 Hospital Bed Availability</h1>
+<p>Check total and available beds</p>
+
+</div>
+
+<ol id="bedContainer"></ol>
+
+</div>
+
+<script>
+
+function toggleMenu(){
+document.getElementById("sidebar")
+.classList.toggle("active");
+}
+
+
+// Simulated API data
+async function getBeds(){
+
+return [
+{
+hospital:"Bir Hospital",
+totalBeds:500,
+bookedBeds:420
+},
+{
+hospital:"T.U Teaching Hospital",
+totalBeds:700,
+bookedBeds:690
+},
+{
+hospital:"Norvic International Hospital",
+totalBeds:300,
+bookedBeds:220
+},
+{
+hospital:"Grande International Hospital",
+totalBeds:250,
+bookedBeds:250
+},
+{
+hospital:"Nepal Mediciti Hospital",
+totalBeds:450,
+bookedBeds:380
+},
+{
+hospital:"Patan Hospital",
+totalBeds:350,
+bookedBeds:290
+},
+{
+hospital:"Om Hospital",
+totalBeds:180,
+bookedBeds:140
+},
+{
+hospital:"HAMS Hospital",
+totalBeds:220,
+bookedBeds:220
+}
+
+];
+
+}
+
+
+async function displayBeds(){
+
+let hospitals=await getBeds();
+
+let data="";
+
+hospitals.forEach(h=>{
+
+let available=
+h.totalBeds-h.bookedBeds;
+
+let status=
+available>0 ?
+"Available" :
+"Full";
+
+let color=
+available>0 ?
+"available" :
+"full";
+
+data+=`
+
+<li>
+
+<div class="info">
+
+<b>${h.hospital}</b>
+
+<p>Total Beds:
+${h.totalBeds}</p>
+
+<p>Booked Beds:
+${h.bookedBeds}</p>
+
+<p>Available Beds:
+${available}</p>
+
+</div>
+
+<div class="status ${color}">
+${status}
+</div>
+
+</li>
+
+`;
+
+});
+
+document.getElementById(
+"bedContainer"
+).innerHTML=data;
+
+}
+
+displayBeds();
+
+</script>
+
+</body>
+</html>

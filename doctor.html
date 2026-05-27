@@ -7,7 +7,6 @@
 
 <style>
 
-
 *{
 margin:0;
 padding:0;
@@ -32,21 +31,17 @@ grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
 gap:20px;
 }
 
-
 .card{
 background:white;
-border-radius:15px;
 padding:15px;
+border-radius:15px;
 text-align:center;
-
-box-shadow:0 5px 15px rgba(0,0,0,0.15);
-
-transition:0.3s;
+box-shadow:0 5px 15px rgba(0,0,0,.15);
+transition:.3s;
 }
 
 .card:hover{
 transform:translateY(-5px);
-box-shadow:0 10px 25px rgba(0,0,0,0.25);
 }
 
 .card img{
@@ -54,33 +49,32 @@ width:100px;
 height:100px;
 border-radius:50%;
 object-fit:cover;
-margin-bottom:10px;
+cursor:pointer;
 border:3px solid #00aaff;
+transition:.3s;
 }
 
+.card img:hover{
+transform:scale(1.1);
+}
 
 .card h2{
-font-size:18px;
+margin:10px 0;
 color:#1d3557;
-margin-bottom:5px;
 }
 
 .card p{
-color:#555;
 margin:4px 0;
-font-size:14px;
+color:#555;
 }
 
 .badge{
-display:inline-block;
 padding:5px 10px;
-border-radius:20px;
 background:linear-gradient(45deg,#0077cc,#00aaff);
 color:white;
+border-radius:20px;
 font-size:12px;
-margin-top:5px;
 }
-
 
 button{
 margin-top:10px;
@@ -90,115 +84,157 @@ border-radius:25px;
 background:linear-gradient(45deg,#0077cc,#00aaff);
 color:white;
 cursor:pointer;
-transition:0.3s;
 }
 
-button:hover{
-transform:scale(1.05);
-background:linear-gradient(45deg,#005fa3,#0077cc);
+/* popup */
+
+.popup{
+display:none;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,.6);
+justify-content:center;
+align-items:center;
+z-index:1000;
 }
 
-
-@media(max-width:768px){
-
-    .sidebar{
-        left:-220px;   
-        width:220px;
-        z-index:1000;
-    }
-
-    .sidebar.active{
-        left:0;        
-    }
-
-    .content{
-        margin-left:0;
-    }
-
-    .menu-btn{
-        display:block;
-        position:absolute;
-        left:15px;
-        top:15px;
-        font-size:28px;
-        cursor:pointer;
-        z-index:1100;
-    }
+.popup-content{
+background:white;
+padding:25px;
+width:90%;
+max-width:500px;
+border-radius:15px;
+position:relative;
+animation:show .4s;
 }
+
+@keyframes show{
+from{
+transform:scale(.7);
+opacity:0;
+}
+to{
+transform:scale(1);
+opacity:1;
+}
+}
+
+.close{
+position:absolute;
+top:10px;
+right:15px;
+font-size:25px;
+cursor:pointer;
+}
+
+.popup img{
+width:120px;
+height:120px;
+border-radius:50%;
+display:block;
+margin:auto;
+margin-bottom:15px;
+border:3px solid #00aaff;
+}
+
+.verify{
+background:#28a745;
+padding:8px;
+border-radius:10px;
+color:white;
+margin-top:10px;
+text-align:center;
+}
+
 </style>
 </head>
-
 <body>
 
 <h1 id="title"></h1>
 
 <div id="doctorContainer"></div>
 
+<div class="popup" id="popup">
+
+<div class="popup-content">
+
+<span class="close" onclick="closePopup()">×</span>
+
+<div id="popupData"></div>
+
+</div>
+
+</div>
+
 <script>
 
-const doctors = {
+const doctors={
 
 "Bir Hospital":[
-{name:"Dr. Ram Sharma",specialist:"Cardiologist",exp:"12 Years",available:"9AM - 2PM",img:"https://randomuser.me/api/portraits/men/32.jpg"},
-{name:"Dr. Sita Rai",specialist:"Neurologist",exp:"8 Years",available:"11AM - 4PM",img:"https://randomuser.me/api/portraits/women/44.jpg"},
-{name:"Dr. Anil KC",specialist:"General Physician",exp:"5 Years",available:"10AM - 3PM",img:"https://randomuser.me/api/portraits/men/65.jpg"}
+{name:"Dr. Ram Sharma",specialist:"Cardiologist",exp:"12 Years",available:"9AM-2PM",img:"https://randomuser.me/api/portraits/men/32.jpg",education:"MBBS, MD Cardiology",qualification:"Tribhuvan University",achievement:"Best Heart Specialist",working:"12 Years",license:"NMC-1001"},
+
+{name:"Dr. Sita Rai",specialist:"Neurologist",exp:"8 Years",available:"11AM-4PM",img:"https://randomuser.me/api/portraits/women/44.jpg",education:"MBBS, DM Neurology",qualification:"Kathmandu University",achievement:"Medical Excellence Award",working:"8 Years",license:"NMC-1002"},
+
+{name:"Dr. Anil KC",specialist:"General Physician",exp:"6 Years",available:"10AM-3PM",img:"https://randomuser.me/api/portraits/men/65.jpg",education:"MBBS",qualification:"BPKIHS",achievement:"Patient Care Award",working:"6 Years",license:"NMC-1003"},
+
+{name:"Dr. Hari Thapa",specialist:"Orthopedic",exp:"10 Years",available:"9AM-1PM",img:"https://randomuser.me/api/portraits/men/45.jpg",education:"MBBS, MS Orthopedics",qualification:"TU",achievement:"Orthopedic Excellence",working:"10 Years",license:"NMC-1004"},
+
+{name:"Dr. Mina Gurung",specialist:"Pediatrician",exp:"7 Years",available:"12PM-5PM",img:"https://randomuser.me/api/portraits/women/65.jpg",education:"MBBS, MD Pediatrics",qualification:"KU",achievement:"Child Care Award",working:"7 Years",license:"NMC-1005"},
+
+{name:"Dr. Ramesh Shrestha",specialist:"Surgeon",exp:"15 Years",available:"On Call",img:"https://randomuser.me/api/portraits/men/12.jpg",education:"MBBS, MS Surgery",qualification:"TU",achievement:"Best Surgeon Award",working:"15 Years",license:"NMC-1006"},
+
+{name:"Dr. Nabin Sharma",specialist:"Neurologist",exp:"11 Years",available:"10AM-2PM",img:"https://randomuser.me/api/portraits/men/52.jpg",education:"MBBS, DM Neurology",qualification:"BPKIHS",achievement:"Neuro Research Award",working:"11 Years",license:"NMC-1007"},
+
+{name:"Dr. Sunita Joshi",specialist:"Pediatrician",exp:"6 Years",available:"1PM-5PM",img:"https://randomuser.me/api/portraits/women/12.jpg",education:"MBBS, MD",qualification:"TU",achievement:"Best Pediatrician",working:"6 Years",license:"NMC-1008"},
+
+{name:"Dr. Kiran Thapa",specialist:"ICU Specialist",exp:"13 Years",available:"24 Hours",img:"https://randomuser.me/api/portraits/men/77.jpg",education:"MBBS, Critical Care",qualification:"KU",achievement:"ICU Excellence",working:"13 Years",license:"NMC-1009"},
+
+{name:"Dr. Samira Shrestha",specialist:"Cardiologist",exp:"9 Years",available:"10AM-4PM",img:"https://randomuser.me/api/portraits/women/33.jpg",education:"MBBS, MD Cardiology",qualification:"TU",achievement:"Heart Care Award",working:"9 Years",license:"NMC-1010"}
 ],
+
 
 "T.U Teaching Hospital":[
-{name:"Dr. Hari Thapa",specialist:"Orthopedic",exp:"10 Years",available:"9AM - 1PM",img:"https://randomuser.me/api/portraits/men/45.jpg"},
-{name:"Dr. Mina Gurung",specialist:"Pediatrician",exp:"7 Years",available:"12PM - 5PM",img:"https://randomuser.me/api/portraits/women/65.jpg"},
-{name:"Dr. Ramesh Shrestha",specialist:"Surgeon",exp:"15 Years",available:"On Call",img:"https://randomuser.me/api/portraits/men/12.jpg"}
-],
-
-"Norvic International Hospital":[
-{name:"Dr. Roshan Rai",specialist:"Cardiology",exp:"14 Years",available:"10AM - 3PM",img:"https://randomuser.me/api/portraits/men/21.jpg"},
-{name:"Dr. Asha Thapa",specialist:"Gynecology",exp:"9 Years",available:"11AM - 4PM",img:"https://randomuser.me/api/portraits/women/22.jpg"}
-],
-
-"Grande International Hospital":[
-{name:"Dr. Nabin Sharma",specialist:"Neurology",exp:"11 Years",available:"9AM - 2PM",img:"https://randomuser.me/api/portraits/men/52.jpg"},
-{name:"Dr. Sunita Joshi",specialist:"Pediatrics",exp:"6 Years",available:"12PM - 5PM",img:"https://randomuser.me/api/portraits/women/12.jpg"}
-],
-
-"Nepal Mediciti Hospital":[
-{name:"Dr. Kiran Thapa",specialist:"ICU Specialist",exp:"13 Years",available:"24 Hours",img:"https://randomuser.me/api/portraits/men/77.jpg"},
-{name:"Dr. Samira Shrestha",specialist:"Cardiology",exp:"9 Years",available:"10AM - 4PM",img:"https://randomuser.me/api/portraits/women/33.jpg"}
-],
-
-"Patan Hospital":[
-{name:"Dr. Samir Rai",specialist:"General Medicine",exp:"8 Years",available:"9AM - 2PM",img:"https://randomuser.me/api/portraits/men/90.jpg"},
-{name:"Dr. Nisha Karki",specialist:"Dermatology",exp:"5 Years",available:"11AM - 3PM",img:"https://randomuser.me/api/portraits/women/55.jpg"}
-],
-
-"Om Hospital":[
-{name:"Dr. Anish Karki",specialist:"Surgery",exp:"10 Years",available:"On Call",img:"https://randomuser.me/api/portraits/men/66.jpg"}
-],
-
-"HAMS Hospital":[
-{name:"Dr. Sunita Sharma",specialist:"Emergency Specialist",exp:"12 Years",available:"24 Hours",img:"https://randomuser.me/api/portraits/women/66.jpg"}
+{name:"Dr. Arun Rai",specialist:"Cardiologist",exp:"9 Years",available:"9AM-2PM",img:"https://randomuser.me/api/portraits/men/81.jpg",education:"MBBS, MD",qualification:"TU",achievement:"Research Award",working:"9 Years",license:"NMC-2001"},
+{name:"Dr. Pooja Lama",specialist:"Neurologist",exp:"10 Years",available:"11AM-5PM",img:"https://randomuser.me/api/portraits/women/30.jpg",education:"MBBS, DM",qualification:"KU",achievement:"Neuro Excellence",working:"10 Years",license:"NMC-2002"},
+{name:"Dr. Raj Sharma",specialist:"Dermatologist",exp:"6 Years",available:"9AM-1PM",img:"https://randomuser.me/api/portraits/men/22.jpg",education:"MBBS, MD",qualification:"TU",achievement:"Skin Specialist Award",working:"6 Years",license:"NMC-2003"},
+{name:"Dr. Suman Thapa",specialist:"Orthopedic",exp:"12 Years",available:"10AM-4PM",img:"https://randomuser.me/api/portraits/men/42.jpg",education:"MBBS, MS",qualification:"KU",achievement:"Orthopedic Excellence",working:"12 Years",license:"NMC-2004"},
+{name:"Dr. Rita Gurung",specialist:"Pediatrician",exp:"8 Years",available:"1PM-6PM",img:"https://randomuser.me/api/portraits/women/27.jpg",education:"MBBS, MD",qualification:"TU",achievement:"Best Child Care",working:"8 Years",license:"NMC-2005"},
+{name:"Dr. Milan Rai",specialist:"Surgeon",exp:"15 Years",available:"On Call",img:"https://randomuser.me/api/portraits/men/24.jpg",education:"MBBS, MS",qualification:"KU",achievement:"Top Surgeon",working:"15 Years",license:"NMC-2006"},
+{name:"Dr. Sagar KC",specialist:"Cardiology",exp:"11 Years",available:"9AM-3PM",img:"https://randomuser.me/api/portraits/men/61.jpg",education:"MBBS",qualification:"TU",achievement:"Heart Research",working:"11 Years",license:"NMC-2007"},
+{name:"Dr. Anita Rai",specialist:"Gynecology",exp:"8 Years",available:"12PM-4PM",img:"https://randomuser.me/api/portraits/women/55.jpg",education:"MBBS, MD",qualification:"KU",achievement:"Women's Health Award",working:"8 Years",license:"NMC-2008"},
+{name:"Dr. Binod Karki",specialist:"General Physician",exp:"5 Years",available:"9AM-2PM",img:"https://randomuser.me/api/portraits/men/75.jpg",education:"MBBS",qualification:"TU",achievement:"Best Care Award",working:"5 Years",license:"NMC-2009"},
+{name:"Dr. Nisha Shrestha",specialist:"ENT",exp:"7 Years",available:"11AM-3PM",img:"https://randomuser.me/api/portraits/women/71.jpg",education:"MBBS",qualification:"KU",achievement:"ENT Excellence",working:"7 Years",license:"NMC-2010"}
 ]
 
 };
 
-const params = new URLSearchParams(window.location.search);
-const hospital = params.get("hospital");
 
-document.getElementById("title").innerText = hospital + " Doctors";
+const params=new URLSearchParams(window.location.search);
 
-let data = "";
+const hospital=params.get("hospital");
 
-doctors[hospital].forEach(doc => {
+document.getElementById("title").innerText=
+hospital+" Doctors";
 
-data += `
+let data="";
+
+doctors[hospital].forEach((doc,index)=>{
+
+data+=`
+
 <div class="card">
 
-<img src="${doc.img}" alt="Doctor">
+<img src="${doc.img}"
+onclick="showDoctor(${index})">
 
 <h2>${doc.name}</h2>
 
-<p>🩺 ${doc.specialist}</p>
-<p>⏳ Experience: ${doc.exp}</p>
-<p>🕒 Available: ${doc.available}</p>
+<p>${doc.specialist}</p>
+
+<p>${doc.available}</p>
 
 <span class="badge">${hospital}</span>
 
@@ -207,11 +243,71 @@ data += `
 <button>Book Appointment</button>
 
 </div>
+
 `;
 
 });
 
-document.getElementById("doctorContainer").innerHTML = data;
+document.getElementById(
+"doctorContainer"
+).innerHTML=data;
+
+
+function showDoctor(index){
+
+let doc=doctors[hospital][index];
+
+document.getElementById(
+"popupData"
+).innerHTML=`
+
+<img src="${doc.img}">
+
+<h2>${doc.name}</h2>
+
+<p><b>Specialist:</b>
+${doc.specialist}</p>
+
+<p><b>Education:</b>
+${doc.education}</p>
+
+<p><b>Qualification:</b>
+${doc.qualification}</p>
+
+<p><b>Achievement:</b>
+${doc.achievement}</p>
+
+<p><b>Working Experience:</b>
+${doc.working}</p>
+
+<p><b>Available:</b>
+${doc.available}</p>
+
+<div class="verify">
+
+✔ Verified Doctor <br>
+
+License ID:
+${doc.license}
+
+</div>
+
+`;
+
+document.getElementById(
+"popup"
+).style.display="flex";
+
+}
+
+
+function closePopup(){
+
+document.getElementById(
+"popup"
+).style.display="none";
+
+}
 
 </script>
 
