@@ -4,326 +4,660 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Smart Hospitals</title>
-
 <style>
-
-
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-body{
-font-family:Arial, sans-serif;
-background:#eef3f8;
+body {
+  font-family: Arial, sans-serif;
+  background: #eef3f8;
 }
 
-
-.sidebar{
-width:220px;
-min-height:100vh;
-position:fixed;
-left:0;
-top:0;
-z-index:1000;
-color:white;
-
-background:
-linear-gradient(rgba(0,0,0,0.6),
-rgba(0,0,0,0.6)),
-url("https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d");
-
-background-size:cover;
-background-position:center;
+.sidebar {
+  width: 220px;
+  min-height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 1000;
+  color: white;
+  background:
+    linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
+    url("https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d");
+  background-size: cover;
+  background-position: center;
 }
 
-.sidebar h2{
-text-align:center;
-padding:25px;
-font-size:28px;
+.sidebar h2 {
+  text-align: center;
+  padding: 25px;
+  font-size: 28px;
 }
 
-.sidebar ul{
-list-style:none;
+.sidebar ul {
+  list-style: none;
 }
 
-.sidebar ul li a{
-display:block;
-padding:15px;
-color:white;
-text-decoration:none;
-text-align:center;
-transition:0.3s;
-border-radius:8px;
+.sidebar ul li a {
+  display: block;
+  padding: 15px;
+  color: white;
+  text-decoration: none;
+  text-align: center;
+  transition: 0.3s;
+  border-radius: 8px;
 }
 
-.sidebar ul li:hover a{
-background:rgba(255,255,255,0.2);
+.sidebar ul li:hover a {
+  background: rgba(255,255,255,0.2);
 }
 
-
-.content{
-margin-left:220px;
-padding:25px;
+.content {
+  margin-left: 220px;
+  padding: 25px;
 }
 
-
-.header{
-background:
-linear-gradient(rgba(0,0,0,0.5),
-rgba(0,0,0,0.5)),
-url("https://images.unsplash.com/photo-1538108149393-fbbd81895907");
-
-background-size:cover;
-background-position:center;
-
-color:white;
-padding:40px;
-text-align:center;
-border-radius:15px;
-
-box-shadow:0 5px 15px rgba(0,0,0,0.3);
+.header {
+  background:
+    linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
+    url("https://images.unsplash.com/photo-1538108149393-fbbd81895907");
+  background-size: cover;
+  background-position: center;
+  color: white;
+  padding: 40px;
+  text-align: center;
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
 }
 
-.header h1{
-font-size:36px;
+.header h1 {
+  font-size: 36px;
 }
 
-.header p{
-margin-top:10px;
-opacity:0.9;
+.header p {
+  margin-top: 10px;
+  opacity: 0.9;
 }
 
-.menu-btn{
-position:absolute;
-left:15px;
-top:15px;
-font-size:25px;
-cursor:pointer;
-color:white;
-display:none;
+.menu-btn {
+  position: absolute;
+  left: 15px;
+  top: 15px;
+  font-size: 25px;
+  cursor: pointer;
+  color: white;
+  display: none;
 }
 
-ol{
-margin-top:25px;
+ol {
+  margin-top: 25px;
 }
 
-ol li{
-background:white;
-margin:18px 0;
-padding:18px;
-border-radius:15px;
-
-box-shadow:0 5px 15px rgba(0,0,0,0.15);
-
-list-style:none;
-
-display:flex;
-justify-content:space-between;
-align-items:center;
-
-transition:0.3s;
+ol li {
+  background: white;
+  margin: 18px 0;
+  padding: 18px;
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: 0.3s;
 }
 
-ol li:hover{
-transform:translateY(-5px);
-box-shadow:0 8px 20px rgba(0,0,0,0.25);
+ol li:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
 }
 
-.info{
-flex:1;
+.info {
+  flex: 1;
 }
 
-ol li b{
-font-size:18px;
-color:#1d3557;
+ol li b {
+  font-size: 18px;
+  color: #1d3557;
 }
 
-ol li p{
-color:#555;
-margin:4px 0;
+ol li p {
+  color: #555;
+  margin: 4px 0;
 }
 
-.hospital-img{
-width:80px;
-height:80px;
-border-radius:12px;
-object-fit:cover;
-margin-left:15px;
-border:2px solid #00aaff;
+/* Location link — looks like the original text but acts as a link */
+.location-link {
+  color: #555;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: color 0.2s;
+  cursor: pointer;
 }
 
-
-button{
-margin-top:10px;
-border:none;
-padding:10px 16px;
-border-radius:30px;
-
-background:linear-gradient(45deg,#0077cc,#00aaff);
-color:white;
-cursor:pointer;
-font-size:14px;
-transition:0.3s;
+.location-link:hover {
+  color: #0077cc;
+  text-decoration: underline;
 }
 
-button:hover{
-transform:scale(1.05);
-background:linear-gradient(45deg,#005fa3,#0077cc);
+.location-link .map-icon {
+  font-size: 13px;
+  opacity: 0;
+  transition: opacity 0.2s;
 }
 
-@media(max-width:768px){
-
-    .sidebar{
-        left:-220px;  
-        width:220px;
-        z-index:1000;
-    }
-
-    .sidebar.active{
-        left:0;        
-    }
-
-    .content{
-        margin-left:0;
-    }
-
-    .menu-btn{
-        display:block;
-        position:absolute;
-        left:15px;
-        top:15px;
-        font-size:28px;
-        cursor:pointer;
-        z-index:1100;
-    }
+.location-link:hover .map-icon {
+  opacity: 1;
 }
 
+.hospital-img {
+  width: 80px;
+  height: 80px;
+  border-radius: 12px;
+  object-fit: cover;
+  margin-left: 15px;
+  border: 2px solid #00aaff;
+}
+
+button {
+  margin-top: 10px;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 30px;
+  background: linear-gradient(45deg, #0077cc, #00aaff);
+  color: white;
+  cursor: pointer;
+  font-size: 14px;
+  transition: 0.3s;
+}
+
+button:hover {
+  transform: scale(1.05);
+  background: linear-gradient(45deg, #005fa3, #0077cc);
+}
+
+/* Map modal overlay */
+.map-modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  z-index: 2000;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.map-modal.open {
+  display: flex;
+}
+
+.map-box {
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  width: 100%;
+  max-width: 820px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+  display: flex;
+  flex-direction: column;
+}
+
+.map-box-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 20px;
+  background: linear-gradient(45deg, #0077cc, #00aaff);
+  color: white;
+}
+
+.map-box-header h3 {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.map-box-header .close-btn {
+  background: rgba(255,255,255,0.25);
+  border: none;
+  color: white;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  transition: background 0.2s;
+}
+
+.map-box-header .close-btn:hover {
+  background: rgba(255,255,255,0.45);
+  transform: none;
+}
+
+.map-actions {
+  display: flex;
+  gap: 10px;
+  padding: 12px 20px;
+  background: #f4f8fb;
+  border-bottom: 1px solid #e0eaf3;
+  flex-wrap: wrap;
+}
+
+.map-actions a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border-radius: 30px;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: 0.2s;
+}
+
+.btn-gmaps {
+  background: linear-gradient(45deg, #0077cc, #00aaff);
+  color: white;
+}
+
+.btn-gmaps:hover {
+  background: linear-gradient(45deg, #005fa3, #0077cc);
+  transform: scale(1.04);
+}
+
+.btn-directions {
+  background: #e8f4fd;
+  color: #0077cc;
+  border: 1.5px solid #b3d9f5;
+}
+
+.btn-directions:hover {
+  background: #cde9fa;
+  transform: scale(1.04);
+}
+
+.map-frame-wrap {
+  width: 100%;
+  height: 420px;
+}
+
+.map-frame-wrap iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
+}
+
+/* Bed stats panel — sits between .info and the hospital image */
+.bed-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0 18px;
+  flex-shrink: 0;
+}
+
+.stat-card {
+  background: #f4f8fb;
+  border-radius: 10px;
+  padding: 10px 16px;
+  text-align: center;
+  min-width: 100px;
+  border: 1.5px solid #d0e8f5;
+}
+
+.stat-card .stat-num {
+  font-size: 22px;
+  font-weight: 700;
+  color: #0077cc;
+  line-height: 1.1;
+}
+
+.stat-card .stat-label {
+  font-size: 11px;
+  color: #777;
+  margin-top: 3px;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+.stat-card.icu .stat-num  { color: #d9534f; }
+.stat-card.icu            { border-color: #f5c6c5; background: #fff6f6; }
+.stat-card.emergency .stat-num { color: #e07b00; }
+.stat-card.emergency      { border-color: #fddcaa; background: #fffbf4; }
+
+/* Availability row inside each stat card */
+.avail-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  margin-top: 5px;
+}
+
+.avail-bar-wrap {
+  flex: 1;
+  height: 5px;
+  background: #e0e0e0;
+  border-radius: 99px;
+  overflow: hidden;
+}
+
+.avail-bar {
+  height: 100%;
+  border-radius: 99px;
+}
+
+.avail-bar.high   { background: #28a745; }
+.avail-bar.medium { background: #fd7e14; }
+.avail-bar.low    { background: #dc3545; }
+
+.avail-badge {
+  font-size: 10px;
+  font-weight: 700;
+  padding: 1px 6px;
+  border-radius: 99px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.avail-badge.high   { background: #d4edda; color: #155724; }
+.avail-badge.medium { background: #fde8d2; color: #7a3300; }
+.avail-badge.low    { background: #f8d7da; color: #721c24; }
+
+@media (max-width: 600px) {
+  .bed-stats {
+    flex-direction: row;
+    margin: 10px 0 0;
+    justify-content: flex-start;
+  }
+
+  .stat-card {
+    min-width: 80px;
+    padding: 8px 10px;
+  }
+
+  ol li {
+    flex-wrap: wrap;
+  }
+
+  .hospital-img {
+    margin-left: auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    left: -220px;
+    width: 220px;
+    z-index: 1000;
+  }
+
+  .sidebar.active {
+    left: 0;
+  }
+
+  .content {
+    margin-left: 0;
+  }
+
+  .menu-btn {
+    display: block;
+    position: absolute;
+    left: 15px;
+    top: 15px;
+    font-size: 28px;
+    cursor: pointer;
+    z-index: 1100;
+  }
+
+  .map-frame-wrap {
+    height: 280px;
+  }
+}
 </style>
 </head>
 
 <body>
 
-
 <div class="sidebar" id="sidebar">
-
-<h2>APPY</h2>
-
-<ul>
-<li><a href="index.html">Home</a></li>
-<li><a href="Maps.html">Maps</a></li>
-<li><a href="Hospitals.html">Hospitals</a></li>
-<li><a href="beds.html">Beds</a></li>
-<li><a href="Emergency number.html">Emergency Number</a></li>
-</ul>
-
+  <h2>APPY</h2>
+  <ul>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="Maps.html">Maps</a></li>
+    <li><a href="Hospitals.html">Hospitals</a></li>
+    <li><a href="beds.html">Beds</a></li>
+    <li><a href="Emergency number.html">Emergency Number</a></li>
+  </ul>
 </div>
-
 
 <div class="content">
-
-<div class="header">
-
-<span class="menu-btn" onclick="toggleMenu()">☰</span>
-
-<h1>🏥 Hospital Directory</h1>
-<p>Quick access to hospitals and doctor information</p>
-
+  <div class="header">
+    <span class="menu-btn" onclick="toggleMenu()">☰</span>
+    <h1>🏥 Hospital Directory</h1>
+    <p>Quick access to hospitals and doctor information</p>
+  </div>
+  <ol id="hospitalContainer"></ol>
 </div>
 
-<ol id="hospitalContainer"></ol>
-
+<!-- Map Modal -->
+<div class="map-modal" id="mapModal" onclick="closeMapOnOverlay(event)">
+  <div class="map-box">
+    <div class="map-box-header">
+      <h3 id="mapModalTitle">📍 Location</h3>
+      <button class="close-btn" onclick="closeMap()">✕</button>
+    </div>
+    <div class="map-actions">
+      <a id="gmapsLink" href="#" target="_blank" class="btn-gmaps">🗺 Open in Google Maps</a>
+      <a id="directionsLink" href="#" target="_blank" class="btn-directions">🧭 Get Directions</a>
+    </div>
+    <div class="map-frame-wrap">
+      <iframe id="mapIframe" src="" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+  </div>
 </div>
 
 <script>
-
-function toggleMenu(){
-document.getElementById("sidebar").classList.toggle("active");
+function toggleMenu() {
+  document.getElementById("sidebar").classList.toggle("active");
 }
 
+// Each hospital has a human-readable address for map search
 const hospitals = [
-{
-name:"Bir Hospital",
-location:"Kathmandu",
-services:"Emergency, Surgery, ICU",
-img:"https://upload.wikimedia.org/wikipedia/commons/6/6f/Bir_Hospital_Kathmandu.jpg"
-},
-{
-name:"T.U Teaching Hospital",
-location:"Maharajgunj",
-services:"Medical Education, Emergency",
-img:"https://upload.wikimedia.org/wikipedia/commons/3/3f/Tribhuvan_University_Teaching_Hospital.jpg"
-},
-{
-name:"Norvic International Hospital",
-location:"Kathmandu",
-services:"Cardiology, Orthopedics",
-img:"https://www.norvichospital.com/images/about.jpg"
-},
-{
-name:"Grande International Hospital",
-location:"Tokha",
-services:"Neurology, Pediatrics, ICU",
-img:"https://www.grandehospital.com/images/about.jpg"
-},
-{
-name:"Nepal Mediciti Hospital",
-location:"Lalitpur",
-services:"Multi-speciality, ICU",
-img:"https://nepalmediciti.com/wp-content/uploads/2019/03/hospital.jpg"
-},
-{
-name:"Patan Hospital",
-location:"Lagankhel",
-services:"General Medicine, Surgery",
-img:"https://upload.wikimedia.org/wikipedia/commons/1/1c/Patan_Hospital.jpg"
-},
-{
-name:"Om Hospital",
-location:"Chabahil",
-services:"Surgery, Emergency, ICU",
-img:"https://omhospital.com.np/images/slider/1.jpg"
-},
-{
-name:"HAMS Hospital",
-location:"Mandikhatar",
-services:"Emergency, ICU, Neurology",
-img:"https://hams.com.np/images/hospital.jpg"
-}
+  {
+    name: "Bir Hospital",
+    location: "Kathmandu",
+    mapQuery: "Bir Hospital, Kathmandu, Nepal",
+    services: "Emergency, Surgery, ICU",
+    totalBeds: 500, icuBeds: 30, emergencyBeds: 45,
+    availTotal: 87, availIcu: 6, availEmergency: 12,
+    img: "https://upload.wikimedia.org/wikipedia/commons/6/6f/Bir_Hospital_Kathmandu.jpg"
+  },
+  {
+    name: "T.U Teaching Hospital",
+    location: "Maharajgunj",
+    mapQuery: "Tribhuvan University Teaching Hospital, Maharajgunj, Kathmandu, Nepal",
+    services: "Medical Education, Emergency",
+    totalBeds: 650, icuBeds: 40, emergencyBeds: 50,
+    availTotal: 210, availIcu: 14, availEmergency: 18,
+    img: "https://upload.wikimedia.org/wikipedia/commons/3/3f/Tribhuvan_University_Teaching_Hospital.jpg"
+  },
+  {
+    name: "Norvic International Hospital",
+    location: "Kathmandu",
+    mapQuery: "Norvic International Hospital, Kathmandu, Nepal",
+    services: "Cardiology, Orthopedics",
+    totalBeds: 150, icuBeds: 18, emergencyBeds: 20,
+    availTotal: 22, availIcu: 2, availEmergency: 5,
+    img: "https://www.norvichospital.com/images/about.jpg"
+  },
+  {
+    name: "Grande International Hospital",
+    location: "Tokha",
+    mapQuery: "Grande International Hospital, Tokha, Kathmandu, Nepal",
+    services: "Neurology, Pediatrics, ICU",
+    totalBeds: 350, icuBeds: 35, emergencyBeds: 30,
+    availTotal: 95, availIcu: 8, availEmergency: 9,
+    img: "https://www.grandehospital.com/images/about.jpg"
+  },
+  {
+    name: "Nepal Mediciti Hospital",
+    location: "Lalitpur",
+    mapQuery: "Nepal Mediciti Hospital, Lalitpur, Nepal",
+    services: "Multi-speciality, ICU",
+    totalBeds: 300, icuBeds: 28, emergencyBeds: 25,
+    availTotal: 140, availIcu: 11, availEmergency: 10,
+    img: "https://nepalmediciti.com/wp-content/uploads/2019/03/hospital.jpg"
+  },
+  {
+    name: "Patan Hospital",
+    location: "Lagankhel",
+    mapQuery: "Patan Hospital, Lagankhel, Lalitpur, Nepal",
+    services: "General Medicine, Surgery",
+    totalBeds: 420, icuBeds: 22, emergencyBeds: 35,
+    availTotal: 58, availIcu: 3, availEmergency: 7,
+    img: "https://upload.wikimedia.org/wikipedia/commons/1/1c/Patan_Hospital.jpg"
+  },
+  {
+    name: "Om Hospital",
+    location: "Chabahil",
+    mapQuery: "Om Hospital, Chabahil, Kathmandu, Nepal",
+    services: "Surgery, Emergency, ICU",
+    totalBeds: 200, icuBeds: 20, emergencyBeds: 22,
+    availTotal: 44, availIcu: 5, availEmergency: 6,
+    img: "https://omhospital.com.np/images/slider/1.jpg"
+  },
+  {
+    name: "HAMS Hospital",
+    location: "Mandikhatar",
+    mapQuery: "HAMS Hospital, Mandikhatar, Kathmandu, Nepal",
+    services: "Emergency, ICU, Neurology",
+    totalBeds: 180, icuBeds: 16, emergencyBeds: 18,
+    availTotal: 30, availIcu: 1, availEmergency: 3,
+    img: "https://hams.com.np/images/hospital.jpg"
+  }
 ];
 
+// Google Maps embed API key is not needed for the search embed (place search works without key)
+// We use the free Maps embed URL with a query parameter
+function buildEmbedUrl(query) {
+  return `https://www.google.com/maps/embed/v1/search?key=AIzaSyD-9tSrke72PouQMnMX-a7eZSW0jkFMBWY&q=${encodeURIComponent(query)}`;
+}
 
-function displayHospital(){
-let data="";
+function buildDirectionsUrl(query) {
+  return `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(query)}`;
+}
 
-hospitals.forEach(h=>{
-data += `
-<li>
+function buildMapsUrl(query) {
+  return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;
+}
 
-<div class="info">
+function openMap(name, mapQuery) {
+  document.getElementById("mapModalTitle").textContent = "📍 " + name;
 
-<b>${h.name}</b>
-<p>📍 ${h.location}</p>
-<p>🩺 ${h.services}</p>
+  // Use a free embed approach that works without an API key:
+  // The maps/search iframe route works without a billing key for basic usage
+  const embedUrl = `https://maps.google.com/maps?q=${encodeURIComponent(mapQuery)}&output=embed&z=15`;
+  document.getElementById("mapIframe").src = embedUrl;
+  document.getElementById("gmapsLink").href = buildMapsUrl(mapQuery);
+  document.getElementById("directionsLink").href = buildDirectionsUrl(mapQuery);
 
-<a href="doctor.html?hospital=${encodeURIComponent(h.name)}">
-<button>View Doctors</button>
-</a>
+  document.getElementById("mapModal").classList.add("open");
+  document.body.style.overflow = "hidden";
+}
 
-</div>
+function closeMap() {
+  document.getElementById("mapModal").classList.remove("open");
+  document.getElementById("mapIframe").src = "";
+  document.body.style.overflow = "";
+}
 
-<img class="hospital-img" src="${h.img}" alt="${h.name}">
+function closeMapOnOverlay(e) {
+  if (e.target === document.getElementById("mapModal")) closeMap();
+}
 
-</li>
-`;
+// Close on Escape key
+document.addEventListener("keydown", e => {
+  if (e.key === "Escape") closeMap();
 });
 
-document.getElementById("hospitalContainer").innerHTML = data;
+function availLevel(avail, total) {
+  const pct = avail / total;
+  if (pct >= 0.25) return "high";
+  if (pct >= 0.10) return "medium";
+  return "low";
+}
+
+function availLabel(avail, total) {
+  const pct = avail / total;
+  if (pct >= 0.25) return "Available";
+  if (pct >= 0.10) return "Limited";
+  return "Critical";
+}
+
+function availPct(avail, total) {
+  return Math.round((avail / total) * 100);
+}
+
+function statCard(cssClass, total, avail, label) {
+  const lvl  = availLevel(avail, total);
+  const lbl  = availLabel(avail, total);
+  const pct  = availPct(avail, total);
+  return `
+    <div class="stat-card ${cssClass}">
+      <div class="stat-num">${total}</div>
+      <div class="stat-label">${label}</div>
+      <div class="avail-row">
+        <div class="avail-bar-wrap">
+          <div class="avail-bar ${lvl}" style="width:${pct}%"></div>
+        </div>
+        <span class="avail-badge ${lvl}">${avail} ${lbl}</span>
+      </div>
+    </div>`;
+}
+
+function displayHospital() {
+  let data = "";
+  hospitals.forEach(h => {
+    data += `
+      <li>
+        <div class="info">
+          <b>${h.name}</b>
+          <p>
+            <a class="location-link" onclick="openMap('${h.name.replace(/'/g,"\\'")}', '${h.mapQuery.replace(/'/g,"\\'")}')">
+              📍 ${h.location}
+              <span class="map-icon">🗺</span>
+            </a>
+          </p>
+          <p>🩺 ${h.services}</p>
+          <a href="doctor.html?hospital=${encodeURIComponent(h.name)}">
+            <button>View Doctors</button>
+          </a>
+        </div>
+
+        <div class="bed-stats">
+          ${statCard("",          h.totalBeds,     h.availTotal,     "Total Beds")}
+          ${statCard("icu",       h.icuBeds,        h.availIcu,       "ICU Beds")}
+          ${statCard("emergency", h.emergencyBeds,  h.availEmergency, "Emergency")}
+        </div>
+
+        <img class="hospital-img" src="${h.img}" alt="${h.name}">
+      </li>
+    `;
+  });
+  document.getElementById("hospitalContainer").innerHTML = data;
 }
 
 displayHospital();
-
 </script>
 
 </body>
