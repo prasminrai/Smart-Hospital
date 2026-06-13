@@ -3,175 +3,172 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Smart Hospitals Map</title>
+<title>Smart Hospitals - Map</title>
 
 <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
 
 <style>
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
+body{
+    margin:0;
+    font-family:Arial,sans-serif;
+    background:#eef3f8;
 }
 
-body{
-font-family:Arial, sans-serif;
-background:linear-gradient(135deg,#dbeafe,#f0f9ff);
-min-height:100vh;
-}
 
 
 .sidebar{
-width:220px;
-height:100vh;
-position:fixed;
-left:0;
-top:0;
-z-index:1000;
-color:white;
+    width:220px;
+    height:100vh;
+    color:white;
+    position:fixed;
+    padding-top:20px;
 
-background:
-linear-gradient(rgba(0,0,0,0.6),
-rgba(0,0,0,0.6)),
-url("https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d");
+    background:
+    linear-gradient(rgba(0,0,0,0.6),
+    rgba(0,0,0,0.6)),
+    url("https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d");
 
-background-size:cover;
-background-position:center;
-
-transition:0.3s ease;
+    background-size:cover;
+    background-position:center;
 }
 
 .sidebar h2{
-text-align:center;
-padding:25px;
-font-size:28px;
+    text-align:center;
+    font-size:28px;
+    margin-bottom:30px;
 }
 
 .sidebar ul{
-list-style:none;
+    list-style:none;
+    padding:0;
+}
+
+.sidebar ul li{
+    padding:15px;
+    text-align:center;
+    transition:0.3s;
 }
 
 .sidebar ul li a{
-display:block;
-padding:15px;
-color:white;
-text-decoration:none;
-text-align:center;
-transition:0.3s;
-border-radius:8px;
+    text-decoration:none;
+    color:white;
+    display:block;
+    font-size:17px;
 }
 
-.sidebar ul li:hover a{
-background:rgba(255,255,255,0.2);
+.sidebar ul li:hover{
+    background:rgba(255,255,255,0.3);
 }
+
 
 
 .content{
-margin-left:220px;
-padding:25px;
+    margin-left:240px;
+    padding:20px;
 }
 
+
+
 .header{
-background:
-linear-gradient(rgba(0,0,0,0.5),
-rgba(0,0,0,0.5)),
-url("https://images.unsplash.com/photo-1538108149393-fbbd81895907");
 
-background-size:cover;
-background-position:center;
+    background:
+    linear-gradient(rgba(0,0,0,0.5),
+    rgba(0,0,0,0.5)),
+    url("https://images.unsplash.com/photo-1538108149393-fbbd81895907");
 
-color:white;
-padding:40px;
-text-align:center;
-border-radius:15px;
+    background-size:cover;
+    background-position:center;
 
-box-shadow:0 5px 15px rgba(0,0,0,0.3);
-position:relative;
+    color:white;
+    text-align:center;
+    padding:60px;
+    border-radius:15px;
+
+    position:relative;
+
+    box-shadow:0 4px 15px rgba(0,0,0,0.3);
 }
 
 .header h1{
-font-size:36px;
+    font-size:40px;
+    margin-bottom:10px;
 }
 
 .header p{
-margin-top:10px;
-opacity:0.9;
+    font-size:18px;
 }
 
 .menu-btn{
-position:absolute;
-left:15px;
-top:15px;
-font-size:28px;
-cursor:pointer;
-color:white;
-display:none;
-z-index:1101;
+    display:none;
+    position:absolute;
+    left:15px;
+    top:15px;
+    font-size:28px;
+    cursor:pointer;
 }
 
 
-.map-container{
-margin-top:20px;
-background:white;
-border-radius:20px;
-padding:15px;
-box-shadow:0 10px 25px rgba(0,0,0,0.15);
-overflow:hidden;
+
+.map-section{
+    margin-top:30px;
+    background:white;
+    padding:25px;
+    border-radius:15px;
+    box-shadow:0 5px 15px rgba(0,0,0,0.15);
+}
+
+.map-section h2{
+    color:#0077cc;
+    margin-bottom:15px;
 }
 
 #map{
-height:600px;
-width:100%;
-border-radius:12px;
+    height:500px;
+    width:100%;
+    border-radius:12px;
+    border:1px solid #dde6f0;
 }
 
-v 
-.overlay{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:rgba(0,0,0,0.4);
-display:none;
-z-index:999;
-}
-
-.overlay.active{
-display:block;
-}
 
 
 @media(max-width:768px){
 
-.sidebar{
-left:-220px;
-}
+    .sidebar{
+        left:-220px;
+        width:220px;
+        z-index:1000;
+    }
 
-.sidebar.active{
-left:0;
-}
+    .sidebar.active{
+        left:0;
+    }
 
-.content{
-margin-left:0;
-}
-.leaflet-top,
-.leaflet-bottom {
-    z-index: 500 !important;
-}
-.menu-btn{
-display:block;
-}
+    .content{
+        margin-left:0;
+    }
+
+    .menu-btn{
+        display:block;
+        position:absolute;
+        left:15px;
+        top:15px;
+        font-size:28px;
+        cursor:pointer;
+        z-index:1100;
+    }
+
+    .leaflet-top,
+    .leaflet-bottom{
+        z-index:500 !important;
+    }
 }
 </style>
 </head>
 
 <body>
 
-
-<div class="overlay" onclick="toggleMenu()"></div>
-
 <div class="sidebar" id="sidebar">
+
 <h2>APPY</h2>
 
 <ul>
@@ -181,20 +178,29 @@ display:block;
 <li><a href="beds.html">Beds</a></li>
 <li><a href="Emergency number.html">Emergency Number</a></li>
 </ul>
+
 </div>
 
 
 <div class="content">
 
 <div class="header">
+
 <span class="menu-btn" onclick="toggleMenu()">☰</span>
 
 <h1>🗺️ Hospital Map</h1>
-<p>Find nearby hospitals easily</p>
+
+<p>Locate hospitals on an interactive map and find nearby places.</p>
+
 </div>
 
-<div class="map-container">
+
+<div class="map-section">
+
+<h2>Nearby Hospitals</h2>
+
 <div id="map"></div>
+
 </div>
 
 </div>
@@ -202,9 +208,10 @@ display:block;
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
 <script>
+
 function toggleMenu(){
-document.getElementById("sidebar").classList.toggle("active");
-document.querySelector(".overlay").classList.toggle("active");
+document.getElementById("sidebar")
+.classList.toggle("active");
 }
 
 
@@ -227,6 +234,7 @@ L.marker([h.lat, h.lng])
 .addTo(map)
 .bindPopup("🏥 " + h.name);
 });
+
 </script>
 
 </body>

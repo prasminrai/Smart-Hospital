@@ -4,175 +4,159 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Smart Hospitals</title>
-
 <style>
-
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-}
-
 body{
-font-family:Arial,sans-serif;
-background:#eef3f8;
+    margin:0;
+    font-family:Arial,sans-serif;
+    background:#eef3f8;
 }
 
 
 
 .sidebar{
-width:220px;
-min-height:100vh;
-position:fixed;
-left:0;
-top:0;
-z-index:1000;
-color:white;
+    width:220px;
+    height:100vh;
+    color:white;
+    position:fixed;
+    padding-top:20px;
 
-background:
-linear-gradient(rgba(0,0,0,0.6),
-rgba(0,0,0,0.6)),
-url("https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d");
+    background:
+    linear-gradient(rgba(0,0,0,0.6),
+    rgba(0,0,0,0.6)),
+    url("https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d");
 
-background-size:cover;
-background-position:center;
+    background-size:cover;
+    background-position:center;
 }
 
 .sidebar h2{
-text-align:center;
-padding:25px;
-font-size:28px;
+    text-align:center;
+    font-size:28px;
+    margin-bottom:30px;
 }
 
 .sidebar ul{
-list-style:none;
+    list-style:none;
+    padding:0;
+}
+
+.sidebar ul li{
+    padding:15px;
+    text-align:center;
+    transition:0.3s;
 }
 
 .sidebar ul li a{
-display:block;
-padding:15px;
-color:white;
-text-decoration:none;
-text-align:center;
-transition:0.3s;
+    text-decoration:none;
+    color:white;
+    display:block;
+    font-size:17px;
 }
 
 .sidebar ul li:hover{
-background:rgba(255,255,255,0.2);
+    background:rgba(255,255,255,0.3);
 }
 
 
 
 .content{
-margin-left:220px;
-padding:20px;
+    margin-left:240px;
+    padding:20px;
 }
 
 
 
 .header{
 
-background:
-linear-gradient(rgba(0,0,0,0.5),
-rgba(0,0,0,0.5)),
-url("https://images.unsplash.com/photo-1538108149393-fbbd81895907");
+    background:
+    linear-gradient(rgba(0,0,0,0.5),
+    rgba(0,0,0,0.5)),
+    url("https://images.unsplash.com/photo-1538108149393-fbbd81895907");
 
-background-size:cover;
-background-position:center;
+    background-size:cover;
+    background-position:center;
 
-color:white;
-padding:50px;
-text-align:center;
-border-radius:15px;
-position:relative;
+    color:white;
+    text-align:center;
+    padding:60px;
+    border-radius:15px;
 
-box-shadow:
-0 5px 15px rgba(0,0,0,0.3);
+    position:relative;
+
+    box-shadow:0 4px 15px rgba(0,0,0,0.3);
 }
 
 .header h1{
-font-size:40px;
+    font-size:40px;
+    margin-bottom:10px;
 }
 
-
+.header p{
+    font-size:18px;
+}
 
 .menu-btn{
-display:none;
-position:absolute;
-left:15px;
-top:15px;
-font-size:25px;
-cursor:pointer;
+    display:none;
+    position:absolute;
+    left:15px;
+    top:15px;
+    font-size:28px;
+    cursor:pointer;
 }
+
 
 
 ol{
-margin-top:25px;
+    margin-top:25px;
 }
 
 ol li{
-background:white;
-margin:20px 0;
-padding:20px;
-border-radius:15px;
+    background:white;
+    margin:20px 0;
+    padding:20px;
+    border-radius:15px;
+    list-style:none;
 
-box-shadow:
-0 5px 15px rgba(0,0,0,0.15);
+    box-shadow:0 5px 15px rgba(0,0,0,0.15);
 
-line-height:1.8;
+    line-height:1.8;
 
-list-style-position:inside;
-
-transition:0.4s;
+    transition:0.4s;
 }
 
 ol li:hover{
-
-transform:translateY(-5px);
-
-box-shadow:
-0 8px 20px rgba(0,0,0,0.25);
+    transform:translateY(-5px);
+    box-shadow:0 8px 20px rgba(0,0,0,0.25);
 }
 
 
 
 button{
+    margin-top:10px;
+    border:none;
+    padding:12px 18px;
+    border-radius:30px;
 
-margin-top:10px;
+    background:linear-gradient(
+    45deg,
+    #0077cc,
+    #00aaff
+    );
 
-border:none;
-
-padding:12px 18px;
-
-border-radius:30px;
-
-background:
-linear-gradient(
-45deg,
-#0077cc,
-#00aaff
-);
-
-color:white;
-
-cursor:pointer;
-
-font-size:15px;
-
-transition:0.3s;
+    color:white;
+    cursor:pointer;
+    font-size:15px;
+    transition:0.3s;
 }
 
 button:hover{
+    transform:scale(1.05);
 
-transform:scale(1.05);
-
-background:
-linear-gradient(
-45deg,
-#005fa3,
-#0077cc
-);
-
+    background:linear-gradient(
+    45deg,
+    #005fa3,
+    #0077cc
+    );
 }
 
 
@@ -180,13 +164,13 @@ linear-gradient(
 @media(max-width:768px){
 
     .sidebar{
-        left:-220px;  
+        left:-220px;
         width:220px;
         z-index:1000;
     }
 
     .sidebar.active{
-        left:0;      
+        left:0;
     }
 
     .content{
@@ -203,16 +187,13 @@ linear-gradient(
         z-index:1100;
     }
 }
-
 </style>
 </head>
 
 <body>
 
 <div class="sidebar" id="sidebar">
-
 <h2>APPY</h2>
-
 <ul>
 <li><a href="index.html">Home</a></li>
 <li><a href="Maps.html">Maps</a></li>
@@ -220,19 +201,14 @@ linear-gradient(
 <li><a href="beds.html">Beds</a></li>
 <li><a href="Emergency number.html">Emergency Number</a></li>
 </ul>
-
 </div>
 
 <div class="content">
 
 <div class="header">
-
 <span class="menu-btn" onclick="toggleMenu()">☰</span>
-
 <h1>Hospital Contacts</h1>
-
 <p>Quick access to hospitals and emergency calls</p>
-
 </div>
 
 <ol>
@@ -240,73 +216,49 @@ linear-gradient(
 <li>
 <b>Nepal Mediciti Hospital (Nakhu)</b><br>
 1134 or 01-4217766<br>
-
-<button onclick="window.location.href='tel:01-4217766'">
-Call Now
-</button>
+<button onclick="window.location.href='tel:01-4217766'">Call Now</button>
 </li>
 
 <li>
 <b>Nepal National Hospital (Kalanki)</b><br>
 01-5225101 / 106 / 1147<br>
-
-<button onclick="window.location.href='tel:01-5225101'">
-Call Now
-</button>
+<button onclick="window.location.href='tel:01-5225101'">Call Now</button>
 </li>
 
 <li>
 <b>Green City Hospital (Basundhara)</b><br>
 01-4981133, 4983169, 4952248<br>
-
-<button onclick="window.location.href='tel:01-4981133'">
-Call Now
-</button>
+<button onclick="window.location.href='tel:01-4981133'">Call Now</button>
 </li>
 
 <li>
-<b>B&B Hospital (Gwarko)</b><br>
+<b>B&amp;B Hospital (Gwarko)</b><br>
 01-5531933, 01-4351930<br>
-
-<button onclick="window.location.href='tel:01-4351930'">
-Call Now
-</button>
+<button onclick="window.location.href='tel:01-4351930'">Call Now</button>
 </li>
 
 <li>
 <b>Vayodha Hospital (Balkhu)</b><br>
 01-4281666, 9802019561<br>
-
-<button onclick="window.location.href='tel:01-4281666'">
-Call Now
-</button>
+<button onclick="window.location.href='tel:01-4281666'">Call Now</button>
 </li>
 
 <li>
 <b>TU Teaching Hospital (Maharajgunj)</b><br>
 01-4412404, 01-4412505<br>
-
-<button onclick="window.location.href='tel:01-4412404'">
-Call Now
-</button>
+<button onclick="window.location.href='tel:01-4412404'">Call Now</button>
 </li>
 
 <li>
 <b>Bir Hospital (Kantipath)</b><br>
 01-4226963<br>
-
-<button onclick="window.location.href='tel:01-4226963'">
-Call Now
-</button>
+<button onclick="window.location.href='tel:01-4226963'">Call Now</button>
 </li>
 
 <li>
 <b>Patan Hospital (Lagankhel)</b><br>
 01-5522278, 01-5522266<br>
-
-<button onclick="window.location.href='tel:01-5522278'">
-Call Now
-</button>
+<button onclick="window.location.href='tel:01-5522278'">Call Now</button>
 </li>
 
 </ol>
