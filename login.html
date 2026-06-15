@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Smart Hospitals – Login</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: Arial, sans-serif;
+  background:
+    linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)),
+    url("https://images.unsplash.com/photo-1538108149393-fbbd81895907");
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.login-card {
+  background: white;
+  border-radius: 18px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.35);
+  padding: 40px 36px;
+  width: 100%;
+  max-width: 420px;
+}
+
+.brand { text-align: center; margin-bottom: 24px; }
+.brand .logo { font-size: 42px; }
+.brand h2 { font-size: 22px; color: #1d3557; margin-top: 6px; font-weight: 700; }
+.brand p  { font-size: 13px; color: #777; margin-top: 4px; }
+
+.tabs {
+  display: flex;
+  background: #eef3f8;
+  border-radius: 30px;
+  padding: 4px;
+  margin-bottom: 24px;
+}
+
+.tab-btn {
+  flex: 1;
+  padding: 9px;
+  border: none;
+  border-radius: 26px;
+  background: transparent;
+  color: #555;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.tab-btn.active {
+  background: linear-gradient(45deg, #0077cc, #00aaff);
+  color: white;
+  box-shadow: 0 3px 10px rgba(0,119,204,0.35);
+}
+
+.msg {
+  display: none;
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 16px;
+  text-align: center;
+}
+.msg.error   { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+.msg.success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+
+.field { margin-bottom: 16px; }
+
+.field label {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  color: #1d3557;
+  margin-bottom: 6px;
+}
+
+.field input {
+  width: 100%;
+  padding: 11px 14px;
+  border: 1.5px solid #d0e8f5;
+  border-radius: 10px;
+  font-size: 14px;
+  color: #333;
+  background: #f4f8fb;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.field input:focus {
+  border-color: #00aaff;
+  box-shadow: 0 0 0 3px rgba(0,170,255,0.15);
+  background: white;
+}
+
+.pwd-wrap { position: relative; }
+.pwd-wrap input { padding-right: 42px; }
+
+.pwd-toggle {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  color: #888;
+  padding: 0;
+  line-height: 1;
+}
+.pwd-toggle:hover { color: #0077cc; }
+
+.forgot { text-align: right; margin-top: -8px; margin-bottom: 16px; }
+.forgot a { font-size: 12px; color: #0077cc; text-decoration: none; }
+.forgot a:hover { text-decoration: underline; }
+
+.submit-btn {
+  width: 100%;
+  padding: 13px;
+  border: none;
+  border-radius: 30px;
+  background: linear-gradient(45deg, #0077cc, #00aaff);
+  color: white;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.3s;
+  letter-spacing: 0.3px;
+}
+.submit-btn:hover {
+  transform: scale(1.03);
+  background: linear-gradient(45deg, #005fa3, #0077cc);
+  box-shadow: 0 6px 18px rgba(0,119,204,0.4);
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 20px 0;
+  color: #aaa;
+  font-size: 12px;
+}
+.divider::before, .divider::after {
+  content: ""; flex: 1; height: 1px; background: #e0eaf3;
+}
+
+.social-row { display: flex; gap: 10px; }
+
+.social-btn {
+  flex: 1;
+  padding: 10px;
+  border: 1.5px solid #e0eaf3;
+  border-radius: 10px;
+  background: white;
+  font-size: 13px;
+  font-weight: 600;
+  color: #444;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  transition: 0.2s;
+}
+.social-btn:hover {
+  background: #f4f8fb;
+  border-color: #b3d9f5;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+}
+
+.role-label { font-size: 13px; font-weight: 700; color: #1d3557; margin-bottom: 8px; }
+.role-row { display: flex; gap: 10px; margin-bottom: 16px; }
+
+.role-btn {
+  flex: 1;
+  padding: 9px 6px;
+  border: 1.5px solid #d0e8f5;
+  border-radius: 10px;
+  background: #f4f8fb;
+  font-size: 12px;
+  color: #555;
+  cursor: pointer;
+  text-align: center;
+  transition: 0.2s;
+  font-weight: 600;
+}
+.role-btn.selected, .role-btn:hover {
+  border-color: #00aaff; background: #e8f4fd; color: #0077cc;
+}
+
+.switch-text { text-align: center; margin-top: 20px; font-size: 13px; color: #777; }
+.switch-text a { color: #0077cc; font-weight: 700; text-decoration: none; cursor: pointer; }
+.switch-text a:hover { text-decoration: underline; }
+
+@media (max-width: 480px) {
+  .login-card { padding: 28px 18px; }
+}
+</style>
+</head>
+<body>
+
+<div class="login-card">
+
+  <div class="brand">
+    <div class="logo">🏥</div>
+    <h2>Smart Hospitals</h2>
+    <p>Your health, our priority</p>
+  </div>
+
+  <div class="tabs">
+    <button class="tab-btn active" id="loginTab"  onclick="switchTab('login')">Login</button>
+    <button class="tab-btn"        id="signupTab" onclick="switchTab('signup')">Sign Up</button>
+  </div>
+
+  <div class="msg" id="msg"></div>
+
+  <!-- LOGIN -->
+  <div id="loginForm">
+    <div class="field">
+      <label>Email Address</label>
+      <input type="email" id="loginEmail" placeholder="you@example.com">
+    </div>
+    <div class="field">
+      <label>Password</label>
+      <div class="pwd-wrap">
+        <input type="password" id="loginPwd" placeholder="Enter your password">
+        <button class="pwd-toggle" onclick="togglePwd('loginPwd',this)">👁</button>
+      </div>
+    </div>
+    <div class="forgot"><a href="#">Forgot password?</a></div>
+    <button class="submit-btn" onclick="handleLogin()">Login</button>
+    <div class="divider">or continue with</div>
+    <div class="social-row">
+      <button class="social-btn">🔵 Google</button>
+      <button class="social-btn">⬛ Apple</button>
+    </div>
+  </div>
+
+  <!-- SIGNUP -->
+  <div id="signupForm" style="display:none;">
+    <div class="role-label">I am a</div>
+    <div class="role-row">
+      <button class="role-btn selected" id="rolePatient" onclick="selectRole('patient')">🧑 Patient</button>
+      <button class="role-btn"          id="roleDoctor"  onclick="selectRole('doctor')">👨‍⚕️ Doctor</button>
+      <button class="role-btn"          id="roleAdmin"   onclick="selectRole('admin')">🏥 Admin</button>
+    </div>
+    <div class="field">
+      <label>Full Name</label>
+      <input type="text" id="signupName" placeholder="Your full name">
+    </div>
+    <div class="field">
+      <label>Email Address</label>
+      <input type="email" id="signupEmail" placeholder="you@example.com">
+    </div>
+    <div class="field">
+      <label>Phone Number</label>
+      <input type="tel" id="signupPhone" placeholder="+977 98XXXXXXXX">
+    </div>
+    <div class="field">
+      <label>Password</label>
+      <div class="pwd-wrap">
+        <input type="password" id="signupPwd" placeholder="Create a password">
+        <button class="pwd-toggle" onclick="togglePwd('signupPwd',this)">👁</button>
+      </div>
+    </div>
+    <div class="field">
+      <label>Confirm Password</label>
+      <div class="pwd-wrap">
+        <input type="password" id="signupPwd2" placeholder="Repeat your password">
+        <button class="pwd-toggle" onclick="togglePwd('signupPwd2',this)">👁</button>
+      </div>
+    </div>
+    <button class="submit-btn" onclick="handleSignup()">Create Account</button>
+    <div class="divider">or sign up with</div>
+    <div class="social-row">
+      <button class="social-btn">🔵 Google</button>
+      <button class="social-btn">⬛ Apple</button>
+    </div>
+  </div>
+
+  <div class="switch-text" id="switchText">
+    Don't have an account? <a onclick="switchTab('signup')">Sign Up</a>
+  </div>
+
+</div>
+
+<script>
+function switchTab(tab) {
+  hideMsg();
+  const isLogin = tab === "login";
+  document.getElementById("loginForm").style.display  = isLogin ? "block" : "none";
+  document.getElementById("signupForm").style.display = isLogin ? "none"  : "block";
+  document.getElementById("loginTab").classList.toggle("active",  isLogin);
+  document.getElementById("signupTab").classList.toggle("active", !isLogin);
+  document.getElementById("switchText").innerHTML = isLogin
+    ? `Don't have an account? <a onclick="switchTab('signup')">Sign Up</a>`
+    : `Already have an account? <a onclick="switchTab('login')">Login</a>`;
+}
+
+let selectedRole = "patient";
+function selectRole(role) {
+  selectedRole = role;
+  ["rolePatient","roleDoctor","roleAdmin"].forEach(id =>
+    document.getElementById(id).classList.remove("selected"));
+  const map = { patient:"rolePatient", doctor:"roleDoctor", admin:"roleAdmin" };
+  document.getElementById(map[role]).classList.add("selected");
+}
+
+function togglePwd(inputId, btn) {
+  const input = document.getElementById(inputId);
+  const show  = input.type === "password";
+  input.type  = show ? "text" : "password";
+  btn.textContent = show ? "🙈" : "👁";
+}
+
+function showMsg(text, type) {
+  const el = document.getElementById("msg");
+  el.textContent = text; el.className = "msg " + type; el.style.display = "block";
+}
+function hideMsg() { document.getElementById("msg").style.display = "none"; }
+
+function handleLogin() {
+  const email = document.getElementById("loginEmail").value.trim();
+  const pwd   = document.getElementById("loginPwd").value;
+  if (!email || !pwd)               { showMsg("⚠️ Please fill in all fields.", "error"); return; }
+  if (!/\S+@\S+\.\S+/.test(email)) { showMsg("⚠️ Please enter a valid email.", "error"); return; }
+  if (pwd.length < 6)               { showMsg("⚠️ Password must be at least 6 characters.", "error"); return; }
+  showMsg("✅ Login successful! Redirecting…", "success");
+  setTimeout(() => { window.location.href = "index.html"; }, 1500);
+}
+
+function handleSignup() {
+  const name  = document.getElementById("signupName").value.trim();
+  const email = document.getElementById("signupEmail").value.trim();
+  const phone = document.getElementById("signupPhone").value.trim();
+  const pwd   = document.getElementById("signupPwd").value;
+  const pwd2  = document.getElementById("signupPwd2").value;
+  if (!name||!email||!phone||!pwd||!pwd2) { showMsg("⚠️ Please fill in all fields.", "error"); return; }
+  if (!/\S+@\S+\.\S+/.test(email))        { showMsg("⚠️ Please enter a valid email.", "error"); return; }
+  if (pwd.length < 6)                      { showMsg("⚠️ Password must be at least 6 characters.", "error"); return; }
+  if (pwd !== pwd2)                        { showMsg("⚠️ Passwords do not match.", "error"); return; }
+  showMsg(`✅ Account created as ${selectedRole}! Redirecting…`, "success");
+  setTimeout(() => { window.location.href = "Hospitals.html"; }, 1500);
+}
+
+document.addEventListener("keydown", e => {
+  if (e.key !== "Enter") return;
+  document.getElementById("loginForm").style.display !== "none" ? handleLogin() : handleSignup();
+});
+</script>
+</body>
+</html>
