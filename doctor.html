@@ -84,22 +84,22 @@ border-radius:25px;
 background:linear-gradient(45deg,#0077cc,#00aaff);
 color:white;
 cursor:pointer;
+transition:0.3s;
+}
+
+button:hover{
+transform:scale(1.05);
+background:linear-gradient(45deg,#005fa3,#0077cc);
 }
 
 
+@media(max-width:768px){
 
-.popup{
-display:none;
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:rgba(0,0,0,.6);
-justify-content:center;
-align-items:center;
-z-index:1000;
-}
+    .sidebar{
+        left:-220px;   
+        width:220px;
+        z-index:1000;
+    }
 
 .popup-content{
 background:white;
@@ -175,14 +175,23 @@ const doctors={
 
 "Bir Hospital":[
 {name:"Dr. Ram Sharma",specialist:"Cardiologist",exp:"12 Years",available:"9AM-2PM",img:"https://randomuser.me/api/portraits/men/32.jpg",education:"MBBS, MD Cardiology",qualification:"Tribhuvan University",achievement:"Best Heart Specialist",working:"12 Years",license:"NMC-1001"},
+
 {name:"Dr. Salomi Limbu",specialist:"Neurologist",exp:"8 Years",available:"11AM-4PM",img:"https://randomuser.me/api/portraits/women/44.jpg",education:"MBBS, DM Neurology",qualification:"Kathmandu University",achievement:"Medical Excellence Award",working:"8 Years",license:"NMC-1002"},
+
 {name:"Dr. Anil KC",specialist:"General Physician",exp:"6 Years",available:"10AM-3PM",img:"https://randomuser.me/api/portraits/men/65.jpg",education:"MBBS",qualification:"BPKIHS",achievement:"Patient Care Award",working:"6 Years",license:"NMC-1003"},
+
 {name:"Dr. Hari Thapa",specialist:"Orthopedic",exp:"10 Years",available:"9AM-1PM",img:"https://randomuser.me/api/portraits/men/45.jpg",education:"MBBS, MS Orthopedics",qualification:"TU",achievement:"Orthopedic Excellence",working:"10 Years",license:"NMC-1004"},
+
 {name:"Dr. Mina Gurung",specialist:"Pediatrician",exp:"7 Years",available:"12PM-5PM",img:"https://randomuser.me/api/portraits/women/65.jpg",education:"MBBS, MD Pediatrics",qualification:"KU",achievement:"Child Care Award",working:"7 Years",license:"NMC-1005"},
+
 {name:"Dr. Ramesh Shrestha",specialist:"Surgeon",exp:"15 Years",available:"On Call",img:"https://randomuser.me/api/portraits/men/12.jpg",education:"MBBS, MS Surgery",qualification:"TU",achievement:"Best Surgeon Award",working:"15 Years",license:"NMC-1006"},
+
 {name:"Dr. Nabin Sharma",specialist:"Neurologist",exp:"11 Years",available:"10AM-2PM",img:"https://randomuser.me/api/portraits/men/52.jpg",education:"MBBS, DM Neurology",qualification:"BPKIHS",achievement:"Neuro Research Award",working:"11 Years",license:"NMC-1007"},
-{name:"Dr. Brunee Lama",specialist:"Pediatrician",exp:"6 Years",available:"1PM-5PM",img:"https://randomuser.me/api/portraits/women/12.jpg",education:"MBBS, MD",qualification:"TU",achievement:"Best Pediatrician",working:"6 Years",license:"NMC-1008"},
+
+{name:"Dr.Brunee Lama ",specialist:"Pediatrician",exp:"6 Years",available:"1PM-5PM",img:"https://randomuser.me/api/portraits/women/12.jpg",education:"MBBS, MD",qualification:"TU",achievement:"Best Pediatrician",working:"6 Years",license:"NMC-1008"},
+
 {name:"Dr. Kiran Thapa",specialist:"ICU Specialist",exp:"13 Years",available:"24 Hours",img:"https://randomuser.me/api/portraits/men/77.jpg",education:"MBBS, Critical Care",qualification:"KU",achievement:"ICU Excellence",working:"13 Years",license:"NMC-1009"},
+
 {name:"Dr. Samira Shrestha",specialist:"Cardiologist",exp:"9 Years",available:"10AM-4PM",img:"https://randomuser.me/api/portraits/women/33.jpg",education:"MBBS, MD Cardiology",qualification:"TU",achievement:"Heart Care Award",working:"9 Years",license:"NMC-1010"}
 ],
 
