@@ -4,22 +4,21 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Smart Hospitals</title>
-
 <style>
 
-
+/* RESET */
 *{
 margin:0;
 padding:0;
 box-sizing:border-box;
 }
 
-body{
-font-family:Arial, sans-serif;
-background:#eef3f8;
+body {
+  font-family: Arial, sans-serif;
+  background: #eef3f8;
 }
 
-
+/* SIDEBAR */
 .sidebar{
 width:220px;
 min-height:100vh;
@@ -38,37 +37,37 @@ background-size:cover;
 background-position:center;
 }
 
-.sidebar h2{
-text-align:center;
-padding:25px;
-font-size:28px;
+.sidebar h2 {
+  text-align: center;
+  padding: 25px;
+  font-size: 28px;
 }
 
-.sidebar ul{
-list-style:none;
+.sidebar ul {
+  list-style: none;
 }
 
-.sidebar ul li a{
-display:block;
-padding:15px;
-color:white;
-text-decoration:none;
-text-align:center;
-transition:0.3s;
-border-radius:8px;
+.sidebar ul li a {
+  display: block;
+  padding: 15px;
+  color: white;
+  text-decoration: none;
+  text-align: center;
+  transition: 0.3s;
+  border-radius: 8px;
 }
 
-.sidebar ul li:hover a{
-background:rgba(255,255,255,0.2);
+.sidebar ul li:hover a {
+  background: rgba(255,255,255,0.2);
 }
 
-
+/* CONTENT */
 .content{
 margin-left:220px;
 padding:25px;
 }
 
-
+/* HEADER */
 .header{
 background:
 linear-gradient(rgba(0,0,0,0.5),
@@ -86,15 +85,16 @@ border-radius:15px;
 box-shadow:0 5px 15px rgba(0,0,0,0.3);
 }
 
-.header h1{
-font-size:36px;
+.header h1 {
+  font-size: 36px;
 }
 
-.header p{
-margin-top:10px;
-opacity:0.9;
+.header p {
+  margin-top: 10px;
+  opacity: 0.9;
 }
 
+/* MENU BUTTON */
 .menu-btn{
 position:absolute;
 left:15px;
@@ -105,46 +105,45 @@ color:white;
 display:none;
 }
 
+/* LIST ITEM FLEX */
 ol{
 margin-top:25px;
 }
 
-ol li{
-background:white;
-margin:18px 0;
-padding:18px;
-border-radius:15px;
-
-box-shadow:0 5px 15px rgba(0,0,0,0.15);
-
-list-style:none;
-
-display:flex;
-justify-content:space-between;
-align-items:center;
-
-transition:0.3s;
+ol li {
+  background: white;
+  margin: 18px 0;
+  padding: 18px;
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: 0.3s;
 }
 
-ol li:hover{
-transform:translateY(-5px);
-box-shadow:0 8px 20px rgba(0,0,0,0.25);
+ol li:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
 }
 
+/* TEXT AREA */
 .info{
 flex:1;
 }
 
-ol li b{
-font-size:18px;
-color:#1d3557;
+ol li b {
+  font-size: 18px;
+  color: #1d3557;
 }
 
-ol li p{
-color:#555;
-margin:4px 0;
+ol li p {
+  color: #555;
+  margin: 4px 0;
 }
 
+/* IMAGE */
 .hospital-img{
 width:80px;
 height:80px;
@@ -154,7 +153,7 @@ margin-left:15px;
 border:2px solid #00aaff;
 }
 
-
+/* BUTTON */
 button{
 margin-top:10px;
 border:none;
@@ -168,21 +167,21 @@ font-size:14px;
 transition:0.3s;
 }
 
-button:hover{
-transform:scale(1.05);
-background:linear-gradient(45deg,#005fa3,#0077cc);
+button:hover {
+  transform: scale(1.05);
+  background: linear-gradient(45deg, #005fa3, #0077cc);
 }
 
 @media(max-width:768px){
 
     .sidebar{
-        left:-220px;  
+        left:-220px;   /* hide it off-screen */
         width:220px;
         z-index:1000;
     }
 
     .sidebar.active{
-        left:0;        
+        left:0;        /* slide in */
     }
 
     .content{
@@ -199,13 +198,12 @@ background:linear-gradient(45deg,#005fa3,#0077cc);
         z-index:1100;
     }
 }
-
 </style>
 </head>
 
 <body>
 
-
+<!-- SIDEBAR -->
 <div class="sidebar" id="sidebar">
 
 <h2>APPY</h2>
@@ -214,86 +212,120 @@ background:linear-gradient(45deg,#005fa3,#0077cc);
 <li><a href="index.html">Home</a></li>
 <li><a href="Maps.html">Maps</a></li>
 <li><a href="Hospitals.html">Hospitals</a></li>
-<li><a href="beds.html">Beds</a></li>
 <li><a href="Emergency number.html">Emergency Number</a></li>
 </ul>
 
 </div>
 
-
+<!-- CONTENT -->
 <div class="content">
-
-<div class="header">
-
-<span class="menu-btn" onclick="toggleMenu()">☰</span>
-
-<h1>🏥 Hospital Directory</h1>
-<p>Quick access to hospitals and doctor information</p>
-
+  <div class="header">
+    <span class="menu-btn" onclick="toggleMenu()">☰</span>
+    <h1>🏥 Hospital Directory</h1>
+    <p>Quick access to hospitals and doctor information</p>
+  </div>
+  <ol id="hospitalContainer"></ol>
 </div>
 
-<ol id="hospitalContainer"></ol>
-
+<!-- Map Modal -->
+<div class="map-modal" id="mapModal" onclick="closeMapOnOverlay(event)">
+  <div class="map-box">
+    <div class="map-box-header">
+      <h3 id="mapModalTitle">📍 Location</h3>
+      <button class="close-btn" onclick="closeMap()">✕</button>
+    </div>
+    <div class="map-actions">
+      <a id="gmapsLink" href="#" target="_blank" class="btn-gmaps">🗺 Open in Google Maps</a>
+      <a id="directionsLink" href="#" target="_blank" class="btn-directions">🧭 Get Directions</a>
+    </div>
+    <div class="map-frame-wrap">
+      <iframe id="mapIframe" src="" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+  </div>
 </div>
 
 <script>
-
-function toggleMenu(){
-document.getElementById("sidebar").classList.toggle("active");
+function toggleMenu() {
+  document.getElementById("sidebar").classList.toggle("active");
 }
 
+/* DATA WITH IMAGES */
 const hospitals = [
-{
-name:"Bir Hospital",
-location:"Kathmandu",
-services:"Emergency, Surgery, ICU",
-img:"https://upload.wikimedia.org/wikipedia/commons/6/6f/Bir_Hospital_Kathmandu.jpg"
-},
-{
-name:"T.U Teaching Hospital",
-location:"Maharajgunj",
-services:"Medical Education, Emergency",
-img:"https://upload.wikimedia.org/wikipedia/commons/3/3f/Tribhuvan_University_Teaching_Hospital.jpg"
-},
-{
-name:"Norvic International Hospital",
-location:"Kathmandu",
-services:"Cardiology, Orthopedics",
-img:"https://www.norvichospital.com/images/about.jpg"
-},
-{
-name:"Grande International Hospital",
-location:"Tokha",
-services:"Neurology, Pediatrics, ICU",
-img:"https://www.grandehospital.com/images/about.jpg"
-},
-{
-name:"Nepal Mediciti Hospital",
-location:"Lalitpur",
-services:"Multi-speciality, ICU",
-img:"https://nepalmediciti.com/wp-content/uploads/2019/03/hospital.jpg"
-},
-{
-name:"Patan Hospital",
-location:"Lagankhel",
-services:"General Medicine, Surgery",
-img:"https://upload.wikimedia.org/wikipedia/commons/1/1c/Patan_Hospital.jpg"
-},
-{
-name:"Om Hospital",
-location:"Chabahil",
-services:"Surgery, Emergency, ICU",
-img:"https://omhospital.com.np/images/slider/1.jpg"
-},
-{
-name:"HAMS Hospital",
-location:"Mandikhatar",
-services:"Emergency, ICU, Neurology",
-img:"https://hams.com.np/images/hospital.jpg"
-}
+  {
+    name: "Bir Hospital",
+    location: "Kathmandu",
+    mapQuery: "Bir Hospital, Kathmandu, Nepal",
+    services: "Emergency, Surgery, ICU",
+    totalBeds: 500, icuBeds: 30, emergencyBeds: 45,
+    availTotal: 87, availIcu: 6, availEmergency: 12,
+    img: "https://upload.wikimedia.org/wikipedia/commons/6/6f/Bir_Hospital_Kathmandu.jpg"
+  },
+  {
+    name: "T.U Teaching Hospital",
+    location: "Maharajgunj",
+    mapQuery: "Tribhuvan University Teaching Hospital, Maharajgunj, Kathmandu, Nepal",
+    services: "Medical Education, Emergency",
+    totalBeds: 650, icuBeds: 40, emergencyBeds: 50,
+    availTotal: 210, availIcu: 14, availEmergency: 18,
+    img: "https://upload.wikimedia.org/wikipedia/commons/3/3f/Tribhuvan_University_Teaching_Hospital.jpg"
+  },
+  {
+    name: "Norvic International Hospital",
+    location: "Kathmandu",
+    mapQuery: "Norvic International Hospital, Kathmandu, Nepal",
+    services: "Cardiology, Orthopedics",
+    totalBeds: 150, icuBeds: 18, emergencyBeds: 20,
+    availTotal: 22, availIcu: 2, availEmergency: 5,
+    img: "https://www.norvichospital.com/images/about.jpg"
+  },
+  {
+    name: "Grande International Hospital",
+    location: "Tokha",
+    mapQuery: "Grande International Hospital, Tokha, Kathmandu, Nepal",
+    services: "Neurology, Pediatrics, ICU",
+    totalBeds: 350, icuBeds: 35, emergencyBeds: 30,
+    availTotal: 95, availIcu: 8, availEmergency: 9,
+    img: "https://www.grandehospital.com/images/about.jpg"
+  },
+  {
+    name: "Nepal Mediciti Hospital",
+    location: "Lalitpur",
+    mapQuery: "Nepal Mediciti Hospital, Lalitpur, Nepal",
+    services: "Multi-speciality, ICU",
+    totalBeds: 300, icuBeds: 28, emergencyBeds: 25,
+    availTotal: 140, availIcu: 11, availEmergency: 10,
+    img: "https://nepalmediciti.com/wp-content/uploads/2019/03/hospital.jpg"
+  },
+  {
+    name: "Patan Hospital",
+    location: "Lagankhel",
+    mapQuery: "Patan Hospital, Lagankhel, Lalitpur, Nepal",
+    services: "General Medicine, Surgery",
+    totalBeds: 420, icuBeds: 22, emergencyBeds: 35,
+    availTotal: 58, availIcu: 3, availEmergency: 7,
+    img: "https://upload.wikimedia.org/wikipedia/commons/1/1c/Patan_Hospital.jpg"
+  },
+  {
+    name: "Om Hospital",
+    location: "Chabahil",
+    mapQuery: "Om Hospital, Chabahil, Kathmandu, Nepal",
+    services: "Surgery, Emergency, ICU",
+    totalBeds: 200, icuBeds: 20, emergencyBeds: 22,
+    availTotal: 44, availIcu: 5, availEmergency: 6,
+    img: "https://omhospital.com.np/images/slider/1.jpg"
+  },
+  {
+    name: "HAMS Hospital",
+    location: "Mandikhatar",
+    mapQuery: "HAMS Hospital, Mandikhatar, Kathmandu, Nepal",
+    services: "Emergency, ICU, Neurology",
+    totalBeds: 180, icuBeds: 16, emergencyBeds: 18,
+    availTotal: 30, availIcu: 1, availEmergency: 3,
+    img: "https://hams.com.np/images/hospital.jpg"
+  }
 ];
 
-
+/* DISPLAY */
 function displayHospital(){
 let data="";
 
@@ -311,19 +343,20 @@ data += `
 <button>View Doctors</button>
 </a>
 
-</div>
+        <div class="bed-stats">
+          ${statCard("",          h.totalBeds,     h.availTotal,     "Total Beds")}
+          ${statCard("icu",       h.icuBeds,        h.availIcu,       "ICU Beds")}
+          ${statCard("emergency", h.emergencyBeds,  h.availEmergency, "Emergency")}
+        </div>
 
-<img class="hospital-img" src="${h.img}" alt="${h.name}">
-
-</li>
-`;
-});
-
-document.getElementById("hospitalContainer").innerHTML = data;
+        <img class="hospital-img" src="${h.img}" alt="${h.name}">
+      </li>
+    `;
+  });
+  document.getElementById("hospitalContainer").innerHTML = data;
 }
 
 displayHospital();
-
 </script>
 
 </body>
