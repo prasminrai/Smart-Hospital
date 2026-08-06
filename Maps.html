@@ -100,12 +100,18 @@ body{
 
 .menu-btn{
     display:none;
-    position:absolute;
+    position:fixed;
     left:15px;
     top:15px;
     font-size:28px;
     cursor:pointer;
+    z-index:2000;
+    color:white;
+   
+    padding:8px 12px;
+    border-radius:8px;
 }
+
 
 
 
@@ -157,15 +163,13 @@ z-index:999;
         margin-left:0;
     }
 
-    .menu-btn{
-        display:block;
-        position:absolute;
-        left:15px;
-        top:15px;
-        font-size:28px;
-        cursor:pointer;
-        z-index:1100;
-    }
+ .menu-btn{
+    display:block;
+    position:fixed;
+    left:15px;
+    top:15px;
+    z-index:2000;
+}
 
     .leaflet-top,
     .leaflet-bottom{
@@ -183,8 +187,9 @@ z-index:999;
 
 <ul>
 <li><a href="index.html">Home</a></li>
-<li><a href="Maps.html">Maps</a></li>
 <li><a href="Hospitals.html">Hospitals</a></li>
+<li><a href="Maps.html">Maps</a></li>
+
 <li><a href="beds.html">Beds</a></li>
 <li><a href="Emergency number.html">Emergency Number</a></li>
 </ul>
@@ -232,18 +237,9 @@ attribution:'© OpenStreetMap contributors'
 }).addTo(map);
 
 
-var hospitals = [
-{ name:"Bir Hospital", lat:27.7050, lng:85.3150 },
-{ name:"T.U Teaching Hospital", lat:27.7344, lng:85.3300 },
-{ name:"Norvic Hospital", lat:27.7000, lng:85.3125 },
-{ name:"Grande Hospital", lat:27.7390, lng:85.3110 }
-];
 
-hospitals.forEach(h => {
-L.marker([h.lat, h.lng])
-.addTo(map)
-.bindPopup("🏥 " + h.name);
-});
+
+
 
 </script>
 

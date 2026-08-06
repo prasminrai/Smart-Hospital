@@ -85,11 +85,16 @@ body{
 
 .menu-btn{
     display:none;
-    position:absolute;
+    position:fixed;
     left:15px;
     top:15px;
     font-size:28px;
     cursor:pointer;
+    z-index:2000;
+    color:white;
+   
+    padding:8px 12px;
+    border-radius:8px;
 }
 
 ol{
@@ -400,15 +405,13 @@ button:hover{
     .content{
         margin-left:0;
     }
-    .menu-btn{
-        display:block;
-        position:absolute;
-        left:15px;
-        top:15px;
-        font-size:28px;
-        cursor:pointer;
-        z-index:1100;
-    }
+   .menu-btn{
+    display:block;
+    position:fixed;
+    left:15px;
+    top:15px;
+    z-index:2000;
+}
     .map-frame-wrap{
         height:280px;
     }
@@ -422,8 +425,9 @@ button:hover{
     <h2>APPY</h2>
     <ul>
         <li><a href="index.html">Home</a></li>
-        <li><a href="Maps.html">Maps</a></li>
         <li><a href="Hospitals.html">Hospitals</a></li>
+        <li><a href="Maps.html">Maps</a></li>
+        
         <li><a href="beds.html">Beds</a></li>
         <li><a href="Emergency number.html">Emergency Number</a></li>
     </ul>

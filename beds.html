@@ -98,11 +98,16 @@ body{
 
 .menu-btn{
     display:none;
-    position:absolute;
+    position:fixed;
     left:15px;
     top:15px;
     font-size:28px;
     cursor:pointer;
+    z-index:2000;
+    color:white;
+   
+    padding:8px 12px;
+    border-radius:8px;
 }
 
 
@@ -178,15 +183,13 @@ ol li:hover{
         margin-left:0;
     }
 
-    .menu-btn{
-        display:block;
-        position:absolute;
-        left:15px;
-        top:15px;
-        font-size:28px;
-        cursor:pointer;
-        z-index:1100;
-    }
+   .menu-btn{
+    display:block;
+    position:fixed;
+    left:15px;
+    top:15px;
+    z-index:2000;
+}
 }
 
   </style>
@@ -198,8 +201,9 @@ ol li:hover{
 <h2>APPY</h2>
 <ul>
 <li><a href="index.html">Home</a></li>
-<li><a href="Maps.html">Maps</a></li>
 <li><a href="Hospitals.html">Hospitals</a></li>
+<li><a href="Maps.html">Maps</a></li>
+
 <li><a href="beds.html">Beds</a></li>
 <li><a href="Emergency number.html">Emergency Number</a></li>
 </ul>
@@ -220,51 +224,51 @@ ol li:hover{
 
 <script>
 
-function toggleMenu(){
-document.getElementById("sidebar")
-.classList.toggle("active");
-}
-
-async function getBeds(){
-return [
-{ hospital:"Bir Hospital",            totalBeds:500, bookedBeds:420 },
-{ hospital:"T.U Teaching Hospital",   totalBeds:700, bookedBeds:690 },
-{ hospital:"Norvic International Hospital", totalBeds:300, bookedBeds:220 },
-{ hospital:"Grande International Hospital", totalBeds:250, bookedBeds:250 },
-{ hospital:"Nepal Mediciti Hospital", totalBeds:450, bookedBeds:380 },
-{ hospital:"Patan Hospital",          totalBeds:350, bookedBeds:290 },
-{ hospital:"Om Hospital",             totalBeds:180, bookedBeds:140 },
-{ hospital:"HAMS Hospital",           totalBeds:220, bookedBeds:220 }
+let hospitals = [
+  { hospital: "Bir Hospital", totalBeds: 500, bookedBeds: 420 },
+  { hospital: "T.U Teaching Hospital", totalBeds: 700, bookedBeds: 690 },
+  { hospital: "Norvic International Hospital", totalBeds: 300, bookedBeds: 220 },
+  { hospital: "Grande International Hospital", totalBeds: 250, bookedBeds: 250 },
+  { hospital: "Nepal Mediciti Hospital", totalBeds: 450, bookedBeds: 380 },
+  { hospital: "Patan Hospital", totalBeds: 350, bookedBeds: 290 },
+  { hospital: "Om Hospital", totalBeds: 180, bookedBeds: 140 },
+  { hospital: "HAMS Hospital", totalBeds: 220, bookedBeds: 220 }
 ];
+
+function toggleMenu() {
+  document.getElementById("sidebar").classList.toggle("active");
 }
 
-async function displayBeds(){
-let hospitals = await getBeds();
-let data = "";
+function displayBeds() {
+  let container = document.getElementById("bedContainer");
+  container.innerHTML = ""; 
 
-hospitals.forEach(h => {
+  for (let i = 0; i < hospitals.length; i++) {
+    let h = hospitals[i];
     let available = h.totalBeds - h.bookedBeds;
-    let status = available > 0 ? "Available" : "Full";
-    let color  = available > 0 ? "available" : "full";
 
-    data += `
-    <li>
-      <div class="info">
-        <b>${h.hospital}</b>
-        <p>Total Beds: ${h.totalBeds}</p>
-        <p>Booked Beds: ${h.bookedBeds}</p>
-        <p>Available Beds: ${available}</p>
-      </div>
-      <div class="status ${color}">${status}</div>
-    </li>
+    let status = "Available";
+    let statusClass = "available";
+    if (available <= 0) {
+      status = "Full";
+      statusClass = "full";
+    }
+
+    container.innerHTML += `
+      <li>
+        <div class="info">
+          <b>${h.hospital}</b>
+          <p>Total Beds: ${h.totalBeds}</p>
+          <p>Booked Beds: ${h.bookedBeds}</p>
+          <p>Available Beds: ${available}</p>
+        </div>
+        <div class="status ${statusClass}">${status}</div>
+      </li>
     `;
-});
-
-document.getElementById("bedContainer").innerHTML = data;
+  }
 }
 
 displayBeds();
-
 </script>
 
 </body>
