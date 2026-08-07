@@ -307,7 +307,7 @@ function switchTab(tab) {
 }
 
 let selectedRole = "patient";
-function selectRole(role) {
+function selectRole(role) { 
   selectedRole = role;
   ["rolePatient","roleDoctor","roleAdmin"].forEach(id =>
     document.getElementById(id).classList.remove("selected"));
