@@ -218,57 +218,99 @@ ol li:hover{
 <p>Check total and available beds</p>
 </div>
 
-<ol id="bedContainer"></ol>
+<ol>
+
+<li>
+    <div class="info">
+        <b>Bir Hospital</b>
+        <p>Total Beds: 500</p>
+        <p>Booked Beds: 420</p>
+        <p>Available Beds: 80</p>
+    </div>
+    <div class="status available">Available</div>
+</li>
+
+<li>
+    <div class="info">
+        <b>T.U Teaching Hospital</b>
+        <p>Total Beds: 700</p>
+        <p>Booked Beds: 690</p>
+        <p>Available Beds: 10</p>
+    </div>
+    <div class="status available">Available</div>
+</li>
+
+<li>
+    <div class="info">
+        <b>Norvic International Hospital</b>
+        <p>Total Beds: 300</p>
+        <p>Booked Beds: 220</p>
+        <p>Available Beds: 80</p>
+    </div>
+    <div class="status available">Available</div>
+</li>
+
+<li>
+    <div class="info">
+        <b>Grande International Hospital</b>
+        <p>Total Beds: 250</p>
+        <p>Booked Beds: 250</p>
+        <p>Available Beds: 0</p>
+    </div>
+    <div class="status full">Full</div>
+</li>
+
+<li>
+    <div class="info">
+        <b>Nepal Mediciti Hospital</b>
+        <p>Total Beds: 450</p>
+        <p>Booked Beds: 380</p>
+        <p>Available Beds: 70</p>
+    </div>
+    <div class="status available">Available</div>
+</li>
+
+<li>
+    <div class="info">
+        <b>Patan Hospital</b>
+        <p>Total Beds: 350</p>
+        <p>Booked Beds: 290</p>
+        <p>Available Beds: 60</p>
+    </div>
+    <div class="status available">Available</div>
+</li>
+
+<li>
+    <div class="info">
+        <b>Om Hospital</b>
+        <p>Total Beds: 180</p>
+        <p>Booked Beds: 140</p>
+        <p>Available Beds: 40</p>
+    </div>
+    <div class="status available">Available</div>
+</li>
+
+<li>
+    <div class="info">
+        <b>HAMS Hospital</b>
+        <p>Total Beds: 220</p>
+        <p>Booked Beds: 220</p>
+        <p>Available Beds: 0</p>
+    </div>
+    <div class="status full">Full</div>
+</li>
+
+</ol>
 
 </div>
 
 <script>
 
-let hospitals = [
-  { hospital: "Bir Hospital", totalBeds: 500, bookedBeds: 420 },
-  { hospital: "T.U Teaching Hospital", totalBeds: 700, bookedBeds: 690 },
-  { hospital: "Norvic International Hospital", totalBeds: 300, bookedBeds: 220 },
-  { hospital: "Grande International Hospital", totalBeds: 250, bookedBeds: 250 },
-  { hospital: "Nepal Mediciti Hospital", totalBeds: 450, bookedBeds: 380 },
-  { hospital: "Patan Hospital", totalBeds: 350, bookedBeds: 290 },
-  { hospital: "Om Hospital", totalBeds: 180, bookedBeds: 140 },
-  { hospital: "HAMS Hospital", totalBeds: 220, bookedBeds: 220 }
-];
 
-function toggleMenu() {
-  document.getElementById("sidebar").classList.toggle("active");
+function toggleMenu(){
+    document.getElementById("sidebar").classList.toggle("active");
 }
 
-function displayBeds() {
-  let container = document.getElementById("bedContainer");
-  container.innerHTML = ""; 
-
-  for (let i = 0; i < hospitals.length; i++) {
-    let h = hospitals[i];
-    let available = h.totalBeds - h.bookedBeds;
-
-    let status = "Available";
-    let statusClass = "available";
-    if (available <= 0) {
-      status = "Full";
-      statusClass = "full";
-    }
-
-    container.innerHTML += `
-      <li>
-        <div class="info">
-          <b>${h.hospital}</b>
-          <p>Total Beds: ${h.totalBeds}</p>
-          <p>Booked Beds: ${h.bookedBeds}</p>
-          <p>Available Beds: ${available}</p>
-        </div>
-        <div class="status ${statusClass}">${status}</div>
-      </li>
-    `;
-  }
-}
-
-displayBeds();
 </script>
 
 </body>
